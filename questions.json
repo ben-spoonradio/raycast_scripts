@@ -1,24 +1,297 @@
 {
   "raycast_questions": [
-    "Raycast 실행 후 'Raycast'를 Google에 검색하세요.",
-    "Clipboard History에서 최근 복사 항목 3개 확인 후 붙여넣기.",
-    "Chrome 새 창 열기 (New Window 커맨드 이용).",
-    "Slack Extension 설치 및 채널에 메시지 전송.",
-    "Confluence에서 최근 문서 1건 검색.",
-    "Jira Extension으로 내 할당 이슈 1건 검색.",
-    "Visual Studio Code로 새 프로젝트 폴더 열기.",
-    "System Preferences에서 네트워크 설정 열기.",
-    "터미널에서 현재 디렉토리 경로 복사하기.",
-    "Spotify Extension으로 현재 재생 중인 음악 제어하기.",
-    "Calendar에서 오늘 일정 확인하기.",
-    "Screenshots Extension으로 화면 캡처하기.",
-    "File Search로 특정 파일 찾아 열기.",
-    "Window Management로 현재 창을 좌측 절반으로 이동.",
-    "Extensions Store에서 새로운 확장 프로그램 검색.",
-    "Quicklinks로 자주 사용하는 웹사이트 북마크 추가.",
-    "System Monitor로 CPU 사용률 확인하기.",
-    "Color Picker로 화면의 특정 색상 값 추출하기.",
-    "Notes 앱에서 새 메모 작성하기.",
-    "Finder에서 Applications 폴더 열기."
+    {
+      "id": 1,
+      "title": "Raycast 실행 후 'Raycast'를 Google에 검색하세요.",
+      "description": "Raycast의 기본 검색 기능을 사용하여 Google에서 'Raycast'를 검색합니다. Cmd+Space로 Raycast를 열고, 'Search Google'을 입력한 후 'Raycast' 검색어를 입력하여 실행합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Search Google' 또는 'Google' 입력",
+        "Enter로 Google 검색 선택",
+        "'Raycast' 검색어 입력",
+        "Enter로 검색 실행"
+      ],
+      "category": "기본 검색"
+    },
+    {
+      "id": 2,
+      "title": "Clipboard History에서 최근 복사 항목 3개 확인 후 붙여넣기.",
+      "description": "Raycast의 클립보드 히스토리 기능을 사용하여 최근에 복사한 항목들을 확인하고 원하는 항목을 선택하여 붙여넣습니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Clipboard History' 입력",
+        "최근 복사 항목 3개 확인",
+        "원하는 항목 선택",
+        "Enter로 붙여넣기 실행"
+      ],
+      "category": "클립보드 관리"
+    },
+    {
+      "id": 3,
+      "title": "Chrome 새 창 열기 (New Window 커맨드 이용).",
+      "description": "Raycast를 통해 Google Chrome의 새 창을 열기 위한 커맨드를 사용합니다. Chrome이 설치되어 있어야 하며, Raycast의 앱 통합 기능을 활용합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Chrome' 또는 'New Window' 입력",
+        "Chrome New Window 옵션 선택",
+        "Enter로 실행"
+      ],
+      "category": "앱 통합"
+    },
+    {
+      "id": 4,
+      "title": "Slack Extension 설치 및 채널에 메시지 전송.",
+      "description": "Raycast Store에서 Slack Extension을 찾아 설치하고, Slack 계정을 연동한 후 특정 채널에 테스트 메시지를 전송합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": [
+        "Raycast에서 'Store' 검색",
+        "Slack Extension 검색 및 설치",
+        "Slack 계정 연동",
+        "'Send Message' 커맨드 실행",
+        "채널 선택 및 메시지 작성",
+        "메시지 전송"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 5,
+      "title": "Confluence에서 최근 문서 1건 검색.",
+      "description": "Confluence Extension을 사용하여 최근 문서를 검색하고 열어봅니다. Confluence 계정이 연동되어 있어야 합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Confluence Extension 설치 (필요시)",
+        "계정 연동",
+        "'Search Confluence' 커맨드 실행",
+        "최근 문서 검색",
+        "문서 선택 및 열기"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 6,
+      "title": "Jira Extension으로 내 할당 이슈 1건 검색.",
+      "description": "Jira Extension을 통해 본인에게 할당된 이슈를 검색하고 확인합니다. Jira 계정 연동이 필요합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Jira Extension 설치 (필요시)",
+        "Jira 계정 연동",
+        "'My Issues' 또는 'Search Issues' 커맨드 실행",
+        "할당된 이슈 확인",
+        "이슈 선택 및 열기"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 7,
+      "title": "Visual Studio Code로 새 프로젝트 폴더 열기.",
+      "description": "Raycast를 통해 VS Code를 실행하고 새로운 프로젝트 폴더를 선택하여 엽니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Visual Studio Code' 입력",
+        "'Open Folder' 옵션 선택",
+        "폴더 선택",
+        "VS Code에서 폴더 열기"
+      ],
+      "category": "앱 통합"
+    },
+    {
+      "id": 8,
+      "title": "System Preferences에서 네트워크 설정 열기.",
+      "description": "Raycast를 통해 macOS 시스템 환경설정의 네트워크 패널을 직접 엽니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Network' 또는 'System Preferences' 입력",
+        "Network 설정 선택",
+        "Enter로 실행"
+      ],
+      "category": "시스템 제어"
+    },
+    {
+      "id": 9,
+      "title": "터미널에서 현재 디렉토리 경로 복사하기.",
+      "description": "Raycast의 터미널 관련 기능을 사용하여 현재 작업 중인 디렉토리의 경로를 클립보드에 복사합니다.",
+      "difficulty": "보통",
+      "estimated_time": "45초",
+      "steps": [
+        "터미널 앱이 활성화된 상태에서 Raycast 실행",
+        "'Copy Path' 또는 'Terminal' 관련 커맨드 검색",
+        "현재 디렉토리 경로 복사 실행",
+        "클립보드에 경로 저장 확인"
+      ],
+      "category": "개발 도구"
+    },
+    {
+      "id": 10,
+      "title": "Spotify Extension으로 현재 재생 중인 음악 제어하기.",
+      "description": "Spotify Extension을 사용하여 현재 재생 중인 음악을 일시정지, 재생, 다음 곡 등으로 제어합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Spotify Extension 설치 (필요시)",
+        "Spotify 계정 연동",
+        "'Spotify' 커맨드 실행",
+        "재생/일시정지 또는 다음 곡 선택",
+        "음악 제어 실행"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 11,
+      "title": "Calendar에서 오늘 일정 확인하기.",
+      "description": "Raycast의 Calendar Extension을 사용하여 오늘의 일정을 빠르게 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Calendar' 또는 'Today' 입력",
+        "오늘 일정 확인",
+        "필요시 특정 일정 선택"
+      ],
+      "category": "생산성"
+    },
+    {
+      "id": 12,
+      "title": "Screenshots Extension으로 화면 캡처하기.",
+      "description": "Raycast의 스크린샷 기능을 사용하여 전체 화면 또는 선택 영역을 캡처합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Screenshot' 입력",
+        "캡처 방식 선택 (전체/영역/창)",
+        "스크린샷 실행",
+        "저장 위치 확인"
+      ],
+      "category": "유틸리티"
+    },
+    {
+      "id": 13,
+      "title": "File Search로 특정 파일 찾아 열기.",
+      "description": "Raycast의 파일 검색 기능을 사용하여 컴퓨터에서 특정 파일을 찾아 열어봅니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "찾고자 하는 파일명 입력",
+        "검색 결과에서 파일 선택",
+        "Enter로 파일 열기"
+      ],
+      "category": "파일 관리"
+    },
+    {
+      "id": 14,
+      "title": "Window Management로 현재 창을 좌측 절반으로 이동.",
+      "description": "Raycast의 윈도우 관리 기능을 사용하여 현재 활성 창을 화면의 좌측 절반에 정렬합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "정렬하고 싶은 창이 활성화된 상태에서 Raycast 실행",
+        "'Left Half' 또는 'Window' 입력",
+        "Left Half 옵션 선택",
+        "창 정렬 실행"
+      ],
+      "category": "윈도우 관리"
+    },
+    {
+      "id": 15,
+      "title": "Extensions Store에서 새로운 확장 프로그램 검색.",
+      "description": "Raycast Store에 접속하여 유용한 새로운 확장 프로그램을 검색하고 설치해봅니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Store' 입력",
+        "Extensions Store 열기",
+        "관심 있는 확장 프로그램 검색",
+        "확장 프로그램 설치"
+      ],
+      "category": "확장 관리"
+    },
+    {
+      "id": 16,
+      "title": "Quicklinks로 자주 사용하는 웹사이트 북마크 추가.",
+      "description": "Raycast의 Quicklinks 기능을 사용하여 자주 방문하는 웹사이트를 빠른 접속용 북마크로 추가합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Raycast 설정 열기",
+        "Quicklinks 섹션 찾기",
+        "새 Quicklink 추가",
+        "웹사이트 URL과 이름 입력",
+        "저장 후 테스트"
+      ],
+      "category": "커스터마이제이션"
+    },
+    {
+      "id": 17,
+      "title": "System Monitor로 CPU 사용률 확인하기.",
+      "description": "Raycast의 시스템 모니터링 기능을 사용하여 현재 CPU 사용률과 시스템 상태를 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'System Monitor' 또는 'CPU' 입력",
+        "시스템 정보 확인",
+        "CPU 사용률 및 메모리 상태 확인"
+      ],
+      "category": "시스템 모니터링"
+    },
+    {
+      "id": 18,
+      "title": "Color Picker로 화면의 특정 색상 값 추출하기.",
+      "description": "Raycast의 Color Picker 기능을 사용하여 화면의 특정 위치에서 색상 값을 추출하고 클립보드에 복사합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Color Picker' 입력",
+        "Color Picker 도구 실행",
+        "화면에서 원하는 색상 위치 클릭",
+        "색상 값 복사"
+      ],
+      "category": "디자인 도구"
+    },
+    {
+      "id": 19,
+      "title": "Notes 앱에서 새 메모 작성하기.",
+      "description": "Raycast를 통해 macOS Notes 앱을 실행하고 새로운 메모를 빠르게 작성합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Notes' 또는 'New Note' 입력",
+        "새 메모 생성 선택",
+        "메모 내용 작성",
+        "메모 저장"
+      ],
+      "category": "생산성"
+    },
+    {
+      "id": 20,
+      "title": "Finder에서 Applications 폴더 열기.",
+      "description": "Raycast를 사용하여 macOS Finder에서 Applications 폴더를 빠르게 열어 설치된 앱들을 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Applications' 입력",
+        "Applications 폴더 선택",
+        "Enter로 Finder에서 폴더 열기"
+      ],
+      "category": "파일 관리"
+    }
   ]
 }
