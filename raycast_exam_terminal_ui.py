@@ -6,8 +6,24 @@ import json
 import random
 import os
 import subprocess
+try:
+    import pandas as pd
+    PANDAS_AVAILABLE = True
+except ImportError:
+    PANDAS_AVAILABLE = False
 
 def load_questions():
+    # 1. 엑셀 파일 우선 시도
+    if PANDAS_AVAILABLE and os.path.exists('questions.xlsx'):
+        try:
+            df = pd.read_excel('questions.xlsx', engine='openpyxl')
+            all_questions = df.to_dict('records')
+            selected_questions = random.sample(all_questions, min(5, len(all_questions)))
+            return selected_questions
+        except Exception as e:
+            print(f"엑셀 파일 로드 실패: {e}")
+    
+    # 2. JSON 파일 시도
     try:
         with open('questions.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -15,8 +31,10 @@ def load_questions():
             selected_questions = random.sample(all_questions, min(5, len(all_questions)))
             return selected_questions
     except FileNotFoundError:
-        # 기본 문제들 (fallback)
-        return [
+        pass
+    
+    # 3. 기본 문제들 (fallback)
+    return [
             {
                 "id": 1,
                 "title": "Raycast 실행 후 'Raycast'를 Google에 검색하세요.",
