@@ -1,0 +1,6 @@
+# OpenAI 코드 리뷰 및 커밋 메시지 관련 파일
+openai_config.cfg
+code_review_feedback.md
+debug_request.json
+response.json
+# reviews 디렉토리는 .gitignore에 추가하지 않음 (리뷰 내역 유지)
