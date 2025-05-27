@@ -292,6 +292,307 @@
         "Enter로 Finder에서 폴더 열기"
       ],
       "category": "파일 관리"
+    },
+       {
+      "id": 21,
+      "title": "Emoji & Symbols로 이모지 검색 후 복사하기.",
+      "description": "Raycast의 Emoji & Symbols 기능을 사용하여 특정 이모지를 검색하고 클립보드에 복사합니다. 복사된 이모지를 텍스트 에디터에 붙여넣어 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Emoji' 또는 'Symbols' 입력",
+        "원하는 이모지 키워드 검색 (예: heart, smile)",
+        "이모지 선택",
+        "Enter로 클립보드에 복사"
+      ],
+      "category": "텍스트 도구"
+    },
+    {
+      "id": 22,
+      "title": "Hash Generator로 텍스트의 MD5 해시값 생성하기.",
+      "description": "Raycast의 Hash Generator Extension을 사용하여 입력한 텍스트의 MD5 해시값을 생성하고 결과를 확인합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Hash Generator Extension 설치 (필요시)",
+        "Raycast에서 'Hash' 또는 'MD5' 입력",
+        "Hash Generator 실행",
+        "해시화할 텍스트 입력",
+        "MD5 해시값 생성 및 복사"
+      ],
+      "category": "개발 도구"
+    },
+    {
+      "id": 23,
+      "title": "UUID Generator로 새 UUID 생성하기.",
+      "description": "개발 작업에 필요한 UUID(Universally Unique Identifier)를 Raycast를 통해 빠르게 생성하고 클립보드에 복사합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'UUID' 입력",
+        "UUID Generator 선택",
+        "새 UUID 생성",
+        "클립보드에 복사"
+      ],
+      "category": "개발 도구"
+    },
+    {
+      "id": 24,
+      "title": "GitHub Extension으로 내 레포지토리 검색하기.",
+      "description": "GitHub Extension을 설치하고 계정을 연동한 후, 본인의 GitHub 레포지토리를 검색하여 브라우저에서 열어봅니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "GitHub Extension 설치",
+        "GitHub 계정 연동",
+        "'My Repositories' 커맨드 실행",
+        "레포지토리 검색 또는 선택",
+        "브라우저에서 레포지토리 열기"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 25,
+      "title": "Dictionary로 영어 단어 뜻 검색하기.",
+      "description": "Raycast의 Dictionary 기능을 사용하여 영어 단어의 뜻과 발음을 검색하고 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Dictionary' 또는 'Define' 입력",
+        "Dictionary 기능 선택",
+        "검색할 영어 단어 입력",
+        "단어 뜻과 발음 확인"
+      ],
+      "category": "유틸리티"
+    },
+    {
+      "id": 26,
+      "title": "Bluetooth 기기 연결 상태 확인 및 제어하기.",
+      "description": "Raycast를 통해 Bluetooth 설정에 접근하여 연결된 기기 상태를 확인하고 기기를 연결/해제합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Bluetooth' 입력",
+        "Bluetooth 설정 열기",
+        "연결된 기기 목록 확인",
+        "필요시 기기 연결/해제 실행"
+      ],
+      "category": "시스템 제어"
+    },
+    {
+      "id": 27,
+      "title": "Calculator로 복잡한 수식 계산하기.",
+      "description": "Raycast의 내장 Calculator 기능을 사용하여 복잡한 수학 계산을 수행하고 결과를 클립보드에 복사합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "수식 직접 입력 (예: 125*8+47/3)",
+        "계산 결과 확인",
+        "필요시 결과값 클립보드에 복사",
+        "계산 기록 확인"
+      ],
+      "category": "유틸리티"
+    },
+    {
+      "id": 28,
+      "title": "Dock에서 앱 숨기기/보이기 제어하기.",
+      "description": "Raycast를 통해 macOS Dock의 특정 앱을 숨기거나 다시 보이게 하는 기능을 사용합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Hide' 또는 'Dock' 입력",
+        "Hide/Show Application 기능 선택",
+        "제어할 앱 선택",
+        "Dock에서 숨기기/보이기 실행"
+      ],
+      "category": "시스템 제어"
+    },
+    {
+      "id": 29,
+      "title": "Weather Extension으로 현재 날씨 확인하기.",
+      "description": "Weather Extension을 설치하고 위치를 설정한 후, 현재 날씨와 주간 예보를 확인합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Weather Extension 설치",
+        "위치 설정 (도시명 또는 GPS)",
+        "'Weather' 커맨드 실행",
+        "현재 날씨 정보 확인",
+        "주간 예보 확인"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 30,
+      "title": "Custom Hotkey로 자주 사용하는 커맨드에 단축키 설정하기.",
+      "description": "Raycast 설정에서 자주 사용하는 커맨드에 사용자 정의 단축키(Hotkey)를 설정하여 더 빠르게 접근할 수 있도록 구성합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": [
+        "Raycast 설정 열기 (Cmd+,)",
+        "Extensions 또는 Commands 섹션 이동",
+        "자주 사용하는 커맨드 선택",
+        "Hotkey 설정 옵션 찾기",
+        "원하는 단축키 조합 설정",
+        "설정 저장 후 단축키 테스트"
+      ],
+      "category": "커스터마이제이션"
+    },
+        {
+      "id": 31,
+      "title": "Base64 Encode/Decode로 텍스트 인코딩하기.",
+      "description": "Raycast의 Base64 인코딩/디코딩 기능을 사용하여 텍스트를 Base64로 인코딩하고 다시 디코딩하여 원본과 비교합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Base64' 또는 'Encode' 입력",
+        "Base64 Encode 선택",
+        "인코딩할 텍스트 입력",
+        "인코딩 결과 확인 및 복사"
+      ],
+      "category": "개발 도구"
+    },
+    {
+      "id": 32,
+      "title": "Quit Applications로 실행 중인 모든 앱 종료하기.",
+      "description": "Raycast의 Quit Applications 기능을 사용하여 현재 실행 중인 여러 앱들을 한 번에 선택적으로 종료합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Quit Applications' 입력",
+        "Quit All Applications 선택",
+        "종료할 앱들 선택",
+        "선택된 앱들 일괄 종료"
+      ],
+      "category": "시스템 제어"
+    },
+    {
+      "id": 33,
+      "title": "JSON Pretty Print로 JSON 데이터 포맷팅하기.",
+      "description": "개발 작업 중 받은 압축된 JSON 데이터를 Raycast의 JSON Pretty Print 기능으로 읽기 쉽게 포맷팅합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "JSON Pretty Print Extension 설치 (필요시)",
+        "Raycast에서 'JSON' 또는 'Pretty' 입력",
+        "JSON Pretty Print 선택",
+        "압축된 JSON 데이터 입력",
+        "포맷팅된 결과 확인 및 복사"
+      ],
+      "category": "개발 도구"
+    },
+    {
+      "id": 34,
+      "title": "Password Generator로 안전한 비밀번호 생성하기.",
+      "description": "Raycast의 Password Generator를 사용하여 길이와 복잡성을 조정한 안전한 비밀번호를 생성하고 클립보드에 복사합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Password' 또는 'Generate' 입력",
+        "Password Generator 선택",
+        "비밀번호 길이 및 옵션 설정",
+        "생성된 비밀번호 클립보드에 복사"
+      ],
+      "category": "보안 도구"
+    },
+    {
+      "id": 35,
+      "title": "WiFi 네트워크 연결 상태 확인 및 변경하기.",
+      "description": "Raycast를 통해 현재 WiFi 연결 상태를 확인하고 사용 가능한 다른 네트워크로 연결을 변경합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'WiFi' 또는 'Network' 입력",
+        "WiFi 관련 기능 선택",
+        "현재 연결 상태 확인",
+        "다른 네트워크 선택 및 연결"
+      ],
+      "category": "시스템 제어"
+    },
+    {
+      "id": 36,
+      "title": "Text Case Converter로 텍스트 대소문자 변환하기.",
+      "description": "Raycast의 Text Case 변환 기능을 사용하여 텍스트를 대문자, 소문자, camelCase, snake_case 등 다양한 형식으로 변환합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Text Case' 또는 'Convert' 입력",
+        "Text Case Converter 선택",
+        "변환할 텍스트 입력",
+        "원하는 케이스 형식 선택 및 복사"
+      ],
+      "category": "텍스트 도구"
+    },
+    {
+      "id": 37,
+      "title": "Apple Music Extension으로 음악 재생 목록 제어하기.",
+      "description": "Apple Music Extension을 사용하여 재생 목록을 검색하고 특정 앨범이나 플레이리스트를 재생합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Apple Music Extension 설치 (필요시)",
+        "Apple Music 계정 연동",
+        "'Apple Music' 커맨드 실행",
+        "재생 목록 또는 앨범 검색",
+        "선택한 음악 재생"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 38,
+      "title": "Kill Process로 특정 프로세스 강제 종료하기.",
+      "description": "응답하지 않는 앱이나 프로세스를 Raycast의 Kill Process 기능으로 찾아서 강제 종료합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Kill Process' 또는 'Activity Monitor' 입력",
+        "Kill Process 기능 선택",
+        "종료할 프로세스 검색",
+        "프로세스 선택 후 강제 종료"
+      ],
+      "category": "시스템 제어"
+    },
+    {
+      "id": 39,
+      "title": "QR Code Generator로 URL QR 코드 생성하기.",
+      "description": "웹사이트 URL이나 텍스트를 입력하여 QR 코드를 생성하고 이미지로 저장하거나 미리보기로 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": [
+        "QR Code Generator Extension 설치 (필요시)",
+        "Raycast에서 'QR Code' 입력",
+        "QR Code Generator 선택",
+        "URL 또는 텍스트 입력",
+        "생성된 QR 코드 미리보기 및 저장"
+      ],
+      "category": "유틸리티"
+    },
+    {
+      "id": 40,
+      "title": "Floating Notes로 데스크탑에 메모 띄우기.",
+      "description": "Raycast의 Floating Notes 기능을 사용하여 중요한 메모를 데스크탑에 항상 보이는 플로팅 노트로 생성합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Floating Notes Extension 설치 (필요시)",
+        "Raycast에서 'Floating Notes' 입력",
+        "Create Floating Note 선택",
+        "메모 내용 작성",
+        "데스크탑에 플로팅 노트 생성 확인"
+      ],
+      "category": "생산성"
     }
   ]
 }
