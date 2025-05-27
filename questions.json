@@ -593,6 +593,156 @@
         "데스크탑에 플로팅 노트 생성 확인"
       ],
       "category": "생산성"
+    },
+    {
+      "id": 41,
+      "title": "Unit Converter로 단위 변환하기 (길이, 무게, 온도).",
+      "description": "Raycast의 Unit Converter를 사용하여 미터를 피트로, 킬로그램을 파운드로, 섭씨를 화씨로 변환하는 등 다양한 단위 변환을 수행합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Unit Converter' 또는 'Convert' 입력",
+        "Unit Converter 선택",
+        "변환할 값과 단위 입력 (예: 100 meters)",
+        "목표 단위로 변환 결과 확인"
+      ],
+      "category": "계산 도구"
+    },
+    {
+      "id": 42,
+      "title": "IP Geolocation으로 IP 주소 위치 정보 확인하기.",
+      "description": "특정 IP 주소의 지리적 위치, 국가, 도시 정보를 Raycast의 IP Geolocation 기능으로 조회합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "IP Geolocation Extension 설치 (필요시)",
+        "Raycast에서 'IP' 또는 'Geolocation' 입력",
+        "IP Geolocation 기능 선택",
+        "조회할 IP 주소 입력",
+        "위치 정보 및 상세 정보 확인"
+      ],
+      "category": "네트워크 도구"
+    },
+    {
+      "id": 43,
+      "title": "Menu Bar로 자주 사용하는 기능을 메뉴바에 고정하기.",
+      "description": "Raycast의 Menu Bar 기능을 설정하여 자주 사용하는 커맨드나 정보를 macOS 메뉴바에 항상 표시되도록 구성합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": [
+        "Raycast 설정 열기 (Cmd+,)",
+        "Menu Bar 섹션 찾기",
+        "Show in Menu Bar 옵션 활성화",
+        "메뉴바에 표시할 커맨드 선택",
+        "메뉴바에서 기능 테스트"
+      ],
+      "category": "커스터마이제이션"
+    },
+    {
+      "id": 44,
+      "title": "Timezone Converter로 다른 시간대 시간 확인하기.",
+      "description": "해외 협업이나 미팅을 위해 다른 시간대의 현재 시간을 확인하고 시간 변환을 수행합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Timezone' 또는 'Time' 입력",
+        "Timezone Converter 선택",
+        "확인하고 싶은 도시/시간대 입력",
+        "해당 지역의 현재 시간 확인"
+      ],
+      "category": "유틸리티"
+    },
+    {
+      "id": 45,
+      "title": "Disk Utility로 디스크 사용량 확인하기.",
+      "description": "Raycast를 통해 macOS Disk Utility에 접근하여 각 드라이브의 사용량과 남은 공간을 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Disk Utility' 또는 'Storage' 입력",
+        "Disk Utility 앱 실행",
+        "각 드라이브 사용량 확인",
+        "필요시 디스크 정리 옵션 확인"
+      ],
+      "category": "시스템 모니터링"
+    },
+    {
+      "id": 46,
+      "title": "Notion Extension으로 새 페이지 생성하기.",
+      "description": "Notion Extension을 설치하고 계정을 연동한 후, Raycast에서 직접 새로운 Notion 페이지를 생성합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분 30초",
+      "steps": [
+        "Notion Extension 설치",
+        "Notion 계정 연동 및 권한 설정",
+        "'Notion' 커맨드 실행",
+        "Create Page 선택",
+        "페이지 제목 입력 후 생성"
+      ],
+      "category": "Extension 활용"
+    },
+    {
+      "id": 47,
+      "title": "Network Quality로 인터넷 속도 테스트하기.",
+      "description": "현재 네트워크 연결의 다운로드/업로드 속도와 지연시간을 Raycast의 Network Quality 기능으로 측정합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Cmd+Space로 Raycast 실행",
+        "'Network Quality' 또는 'Speed Test' 입력",
+        "Network Quality 테스트 실행",
+        "다운로드/업로드 속도 측정 대기",
+        "테스트 결과 확인"
+      ],
+      "category": "네트워크 도구"
+    },
+    {
+      "id": 48,
+      "title": "Temporary Email Generator로 임시 이메일 생성하기.",
+      "description": "테스트나 임시 가입 목적으로 사용할 임시 이메일 주소를 생성하고 클립보드에 복사합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": [
+        "Temporary Email Extension 설치 (필요시)",
+        "Raycast에서 'Temp Email' 입력",
+        "Temporary Email Generator 실행",
+        "임시 이메일 주소 생성",
+        "생성된 이메일 주소 복사"
+      ],
+      "category": "유틸리티"
+    },
+    {
+      "id": 49,
+      "title": "Script Commands로 사용자 정의 스크립트 실행하기.",
+      "description": "자주 사용하는 shell 명령어나 스크립트를 Raycast의 Script Commands로 등록하고 실행합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "3분",
+      "steps": [
+        "Script Commands Extension 설치",
+        "새 스크립트 생성 또는 기존 스크립트 추가",
+        "스크립트 파일 권한 설정",
+        "Raycast에서 스크립트 커맨드 실행",
+        "스크립트 실행 결과 확인"
+      ],
+      "category": "개발 도구"
+    },
+    {
+      "id": 50,
+      "title": "Raycast AI로 코드 설명 요청하기.",
+      "description": "Raycast의 내장 AI 기능을 사용하여 복잡한 코드 스니펫에 대한 설명을 요청하고 답변을 받습니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": [
+        "Raycast AI 기능 활성화 (Pro 구독 필요시)",
+        "Cmd+Space로 Raycast 실행",
+        "'AI' 또는 'Ask AI' 입력",
+        "AI 채팅 시작",
+        "코드를 붙여넣고 설명 요청"
+      ],
+      "category": "AI 도구"
     }
   ]
 }
