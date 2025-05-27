@@ -449,6 +449,456 @@
       "estimated_time": "1분 30초",
       "steps": "['Raycast AI 기능 활성화 (Pro 구독 필요시)', 'Cmd+Space로 Raycast 실행', \"'AI' 또는 'Ask AI' 입력\", 'AI 채팅 시작', '코드를 붙여넣고 설명 요청']",
       "category": "AI 도구"
+    },
+    {
+      "id": 51,
+      "title": "URL Shortener로 긴 URL을 단축 URL로 변환하기.",
+      "description": "긴 웹사이트 주소를 Raycast의 URL Shortener 기능을 사용하여 짧은 링크로 변환하고 클립보드에 복사합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": "['URL Shortener Extension 설치 (필요시)', \"Raycast에서 'Shorten URL' 입력\", 'URL Shortener 기능 선택', '변환할 긴 URL 입력', '생성된 단축 URL 복사']",
+      "category": "웹 도구"
+    },
+    {
+      "id": 52,
+      "title": "Docker Extension으로 컨테이너 상태 확인하기.",
+      "description": "Docker가 설치된 환경에서 Raycast의 Docker Extension을 사용하여 실행 중인 컨테이너 목록을 확인하고 관리합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": "['Docker Extension 설치', 'Docker 연결 설정', \"'Docker' 커맨드 실행\", 'List Containers 선택', '컨테이너 상태 확인 및 제어']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 53,
+      "title": "Lorem Ipsum Generator로 더미 텍스트 생성하기.",
+      "description": "웹 디자인이나 레이아웃 테스트를 위한 Lorem Ipsum 더미 텍스트를 원하는 길이로 생성합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Lorem Ipsum' 입력\", 'Lorem Ipsum Generator 선택', '원하는 단어 수 또는 문단 수 설정', '생성된 더미 텍스트 복사']",
+      "category": "텍스트 도구"
+    },
+    {
+      "id": 54,
+      "title": "Figma Extension으로 최근 디자인 파일 열기.",
+      "description": "Figma Extension을 설치하고 계정을 연동한 후, 최근 작업한 디자인 파일을 검색하여 브라우저에서 엽니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['Figma Extension 설치', 'Figma 계정 연동', \"'Figma' 커맨드 실행\", 'Recent Files 또는 Search Files 선택', '디자인 파일 선택 후 열기']",
+      "category": "Extension 활용"
+    },
+    {
+      "id": 55,
+      "title": "HTTP Status Codes로 상태 코드 의미 검색하기.",
+      "description": "웹 개발 중 마주치는 HTTP 상태 코드(404, 500 등)의 정확한 의미와 설명을 빠르게 검색합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": "['HTTP Status Codes Extension 설치 (필요시)', \"Raycast에서 'HTTP' 또는 상태 코드 입력\", 'HTTP Status Codes 검색', '원하는 상태 코드 선택', '상태 코드 의미 및 설명 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 56,
+      "title": "Brew로 설치된 패키지 목록 확인 및 업데이트하기.",
+      "description": "macOS의 Homebrew 패키지 매니저와 연동하여 설치된 패키지 목록을 확인하고 업데이트를 실행합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['Homebrew Extension 설치', \"Raycast에서 'Brew' 입력\", 'List Installed 선택', '설치된 패키지 목록 확인', '필요시 Update All 실행']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 57,
+      "title": "Raycast Theme 변경하기.",
+      "description": "Raycast의 외관 테마를 Light, Dark 또는 사용자 정의 테마로 변경하여 개인 취향에 맞게 커스터마이즈합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['Raycast 설정 열기 (Cmd+,)', 'Appearance 섹션 찾기', 'Theme 옵션 확인', '원하는 테마 선택 (Light/Dark/Auto)', '변경된 테마 확인']",
+      "category": "커스터마이제이션"
+    },
+    {
+      "id": 58,
+      "title": "Email Validator로 이메일 주소 유효성 검증하기.",
+      "description": "입력받은 이메일 주소가 올바른 형식인지 검증하고 도메인 존재 여부까지 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": "['Email Validator Extension 설치 (필요시)', \"Raycast에서 'Email Validator' 입력\", 'Email Validator 실행', '검증할 이메일 주소 입력', '유효성 검증 결과 확인']",
+      "category": "유틸리티"
+    },
+    {
+      "id": 59,
+      "title": "Activity Monitor로 CPU 사용률 높은 프로세스 찾기.",
+      "description": "Raycast를 통해 macOS Activity Monitor에 접근하여 CPU를 많이 사용하는 프로세스를 찾아 확인합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Activity Monitor' 입력\", 'Activity Monitor 앱 실행', 'CPU 탭에서 사용률 높은 프로세스 확인', '필요시 프로세스 상세 정보 확인']",
+      "category": "시스템 모니터링"
+    },
+    {
+      "id": 60,
+      "title": "Markdown to HTML Converter로 마크다운 변환하기.",
+      "description": "작성한 Markdown 문서를 HTML 형식으로 변환하여 웹에서 사용할 수 있는 형태로 만듭니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['Markdown Extension 설치 (필요시)', \"Raycast에서 'Markdown' 입력\", 'Markdown to HTML 선택', '변환할 Markdown 텍스트 입력', '변환된 HTML 결과 확인 및 복사']",
+      "category": "텍스트 도구"
+    },
+    {
+      "id": 61,
+      "title": "Font Book으로 시스템 폰트 검색 및 미리보기하기.",
+      "description": "Raycast를 통해 macOS Font Book에 접근하여 설치된 폰트를 검색하고 미리보기로 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Font Book' 입력\", 'Font Book 앱 실행', '원하는 폰트 검색', '폰트 미리보기 확인']",
+      "category": "디자인 도구"
+    },
+    {
+      "id": 62,
+      "title": "URL Expander로 단축된 URL의 실제 주소 확인하기.",
+      "description": "bit.ly, tinyurl 등의 단축 URL이 실제로 어떤 웹사이트로 연결되는지 미리 확인하여 보안을 강화합니다.",
+      "difficulty": "보통",
+      "estimated_time": "45초",
+      "steps": "['URL Expander Extension 설치 (필요시)', \"Raycast에서 'Expand URL' 입력\", 'URL Expander 실행', '확인할 단축 URL 입력', '실제 목적지 URL 확인']",
+      "category": "보안 도구"
+    },
+    {
+      "id": 63,
+      "title": "Image Optimizer로 이미지 파일 용량 최적화하기.",
+      "description": "웹사이트나 앱에 사용할 이미지 파일의 용량을 줄이기 위해 Raycast의 Image Optimizer를 사용합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['Image Optimizer Extension 설치', \"Raycast에서 'Image Optimizer' 입력\", '최적화할 이미지 파일 선택', '압축 옵션 설정', '최적화된 이미지 저장']",
+      "category": "미디어 도구"
+    },
+    {
+      "id": 64,
+      "title": "Regex Tester로 정규표현식 패턴 테스트하기.",
+      "description": "개발 중 사용할 정규표현식 패턴을 테스트하고 샘플 텍스트와 매칭되는지 실시간으로 확인합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": "['RegEx Tester Extension 설치 (필요시)', \"Raycast에서 'Regex' 입력\", 'Regex Tester 실행', '정규표현식 패턴 입력', '테스트 텍스트로 매칭 결과 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 65,
+      "title": "Reminder 추가로 macOS 미리알림에 할일 등록하기.",
+      "description": "Raycast를 통해 macOS 미리알림 앱에 새로운 할일을 빠르게 추가하고 알림 시간을 설정합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Reminder' 또는 'Add Reminder' 입력\", 'Add Reminder 선택', '할일 내용 입력', '알림 시간 설정 후 저장']",
+      "category": "생산성"
+    },
+    {
+      "id": 66,
+      "title": "SSH Manager로 자주 사용하는 서버에 연결하기.",
+      "description": "자주 접속하는 원격 서버들을 SSH Manager에 등록하고 Raycast에서 빠르게 터미널 SSH 연결을 실행합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분 30초",
+      "steps": "['SSH Manager Extension 설치', '서버 연결 정보 등록', \"'SSH' 커맨드 실행\", '연결할 서버 선택', '터미널에서 SSH 연결 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 67,
+      "title": "World Clock으로 여러 시간대 동시 확인하기.",
+      "description": "글로벌 팀과 협업할 때 필요한 여러 시간대의 현재 시간을 한 번에 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['World Clock Extension 설치 (필요시)', \"Raycast에서 'World Clock' 입력\", 'World Clock 실행', '관심 있는 도시들 추가', '여러 시간대 동시 확인']",
+      "category": "유틸리티"
+    },
+    {
+      "id": 68,
+      "title": "Xcode로 iOS 시뮬레이터 실행하기.",
+      "description": "iOS 앱 개발을 위해 Raycast를 통해 Xcode의 iOS 시뮬레이터를 빠르게 실행합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['Xcode Simulator Extension 설치 (필요시)', \"Raycast에서 'Simulator' 입력\", 'iOS Simulator 선택', '원하는 iOS 버전/기기 선택', '시뮬레이터 실행 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 69,
+      "title": "Contacts에서 연락처 검색 후 정보 확인하기.",
+      "description": "Raycast를 통해 macOS 연락처 앱에서 특정 사람의 연락처 정보를 빠르게 검색하고 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": "['Cmd+Space로 Raycast 실행', '찾고자 하는 사람 이름 입력', '연락처 검색 결과 확인', '연락처 정보 선택', '전화번호, 이메일 등 정보 확인']",
+      "category": "생산성"
+    },
+    {
+      "id": 70,
+      "title": "Text Expander로 자주 사용하는 텍스트 단축어 설정하기.",
+      "description": "이메일 서명, 주소 등 자주 입력하는 긴 텍스트를 단축어로 설정하여 빠르게 입력할 수 있도록 구성합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "3분",
+      "steps": "['Text Expander 기능 또는 Extension 설정', '새 단축어 생성', '단축어와 확장될 텍스트 입력', '단축어 활성화 설정', '텍스트 에디터에서 단축어 테스트']",
+      "category": "생산성"
+    },
+    {
+      "id": 71,
+      "title": "Port Scanner로 네트워크 포트 상태 확인하기.",
+      "description": "특정 IP 주소나 도메인의 네트워크 포트가 열려있는지 확인하여 서버 상태나 보안 점검을 수행합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": "['Port Scanner Extension 설치 (필요시)', \"Raycast에서 'Port Scanner' 입력\", 'Port Scanner 실행', '대상 IP/도메인과 포트 번호 입력', '포트 상태 결과 확인']",
+      "category": "네트워크 도구"
+    },
+    {
+      "id": 72,
+      "title": "CSS Color Converter로 색상 코드 변환하기.",
+      "description": "웹 개발 시 HEX, RGB, HSL 등 다양한 색상 코드 형식을 서로 변환하여 디자인 작업을 효율화합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['CSS Color Converter Extension 설치 (필요시)', \"Raycast에서 'Color Converter' 입력\", 'Color Converter 실행', '변환할 색상 코드 입력 (예: #FF0000)', '다른 형식(RGB, HSL)으로 변환 결과 확인']",
+      "category": "디자인 도구"
+    },
+    {
+      "id": 73,
+      "title": "Memory Cleaner로 시스템 메모리 정리하기.",
+      "description": "macOS의 메모리 사용량이 높을 때 Raycast를 통해 메모리를 정리하여 시스템 성능을 개선합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['Memory Cleaner Extension 설치 (필요시)', \"Raycast에서 'Memory Cleaner' 입력\", 'Clean Memory 실행', '현재 메모리 사용량 확인', '메모리 정리 완료 확인']",
+      "category": "시스템 최적화"
+    },
+    {
+      "id": 74,
+      "title": "DNS Lookup으로 도메인 DNS 정보 조회하기.",
+      "description": "특정 도메인의 DNS 레코드(A, MX, NS 등)를 조회하여 네트워크 문제 해결이나 도메인 설정을 확인합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "1분 30초",
+      "steps": "['DNS Lookup Extension 설치 (필요시)', \"Raycast에서 'DNS Lookup' 입력\", 'DNS Lookup 실행', '조회할 도메인 입력', 'DNS 레코드 정보 확인']",
+      "category": "네트워크 도구"
+    },
+    {
+      "id": 75,
+      "title": "Audio Device Switcher로 오디오 출력 장치 변경하기.",
+      "description": "헤드폰, 스피커, AirPods 등 여러 오디오 장치 간에 빠르게 출력을 전환합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": "['Audio Device Switcher Extension 설치 (필요시)', \"Raycast에서 'Audio Device' 입력\", 'Switch Audio Output 선택', '사용 가능한 오디오 장치 목록 확인', '원하는 출력 장치 선택']",
+      "category": "시스템 제어"
+    },
+    {
+      "id": 76,
+      "title": "GitHub Issues로 이슈 생성 및 관리하기.",
+      "description": "GitHub Extension을 활용하여 레포지토리의 이슈를 검색하고 새로운 이슈를 생성합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분 30초",
+      "steps": "['GitHub Extension에서 Issues 기능 접근', \"'GitHub Issues' 커맨드 실행\", '특정 레포지토리 선택', '새 이슈 생성 또는 기존 이슈 검색', '이슈 제목과 내용 작성']",
+      "category": "Extension 활용"
+    },
+    {
+      "id": 77,
+      "title": "File Hashing으로 파일 체크섬 생성하기.",
+      "description": "파일의 무결성 검증을 위해 MD5, SHA1, SHA256 등의 해시값을 생성합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['File Hash Extension 설치 (필요시)', \"Raycast에서 'File Hash' 입력\", 'Hash File 실행', '해시값을 생성할 파일 선택', 'MD5, SHA1, SHA256 해시값 확인']",
+      "category": "보안 도구"
+    },
+    {
+      "id": 78,
+      "title": "Database Query로 데이터베이스 연결 및 쿼리 실행하기.",
+      "description": "개발 환경의 데이터베이스에 연결하여 간단한 SQL 쿼리를 실행하고 결과를 확인합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "3분",
+      "steps": "['Database Extension 설치', '데이터베이스 연결 정보 설정', \"'Database Query' 실행\", 'SQL 쿼리 입력', '쿼리 결과 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 79,
+      "title": "Pomodoro Timer로 집중 시간 관리하기.",
+      "description": "뽀모도로 기법을 활용하여 25분 집중 + 5분 휴식 사이클로 업무 효율성을 높입니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "30초",
+      "steps": "['Pomodoro Timer Extension 설치 (필요시)', \"Raycast에서 'Pomodoro' 입력\", 'Start Pomodoro 선택', '25분 타이머 시작', '타이머 종료 시 휴식 시간 확인']",
+      "category": "생산성"
+    },
+    {
+      "id": 80,
+      "title": "System Information으로 하드웨어 정보 확인하기.",
+      "description": "현재 Mac의 CPU, 메모리, 스토리지, macOS 버전 등 상세한 시스템 정보를 한 번에 확인합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'System Information' 입력\", 'System Information 실행', '하드웨어 정보 확인', '필요한 정보 클립보드에 복사']",
+      "category": "시스템 모니터링"
+    },
+    {
+      "id": 81,
+      "title": "Git Repository Status로 현재 프로젝트 상태 확인하기.",
+      "description": "현재 작업 중인 Git 레포지토리의 변경사항, 브랜치 정보, 커밋 상태를 Raycast를 통해 빠르게 확인합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['Git Extension 설치 (필요시)', 'Git 프로젝트 폴더에서 Raycast 실행', \"'Git Status' 입력\", 'Git Status 실행', '변경된 파일과 브랜치 상태 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 82,
+      "title": "App Store에서 앱 검색 및 설치하기.",
+      "description": "Raycast를 통해 Mac App Store에 접근하여 특정 앱을 검색하고 설치 페이지로 이동합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'App Store' 입력\", 'App Store 앱 실행', '검색하고 싶은 앱 이름 입력', '앱 정보 확인 후 설치']",
+      "category": "앱 관리"
+    },
+    {
+      "id": 83,
+      "title": "Screen Saver Preview로 화면 보호기 미리보기하기.",
+      "description": "설치된 다양한 화면 보호기를 미리보기로 확인하고 마음에 드는 것으로 설정을 변경합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Screen Saver' 입력\", 'Screen Saver 설정 열기', '다양한 화면 보호기 미리보기', '원하는 화면 보호기 선택']",
+      "category": "시스템 제어"
+    },
+    {
+      "id": 84,
+      "title": "CSV to JSON Converter로 데이터 형식 변환하기.",
+      "description": "CSV 파일 데이터를 JSON 형식으로 변환하여 웹 개발이나 API 작업에 활용할 수 있도록 합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['CSV to JSON Extension 설치 (필요시)', \"Raycast에서 'CSV to JSON' 입력\", 'CSV to JSON Converter 실행', '변환할 CSV 데이터 입력', '변환된 JSON 결과 확인 및 복사']",
+      "category": "데이터 도구"
+    },
+    {
+      "id": 85,
+      "title": "Console로 시스템 로그 확인하기.",
+      "description": "macOS Console 앱을 통해 시스템 에러 로그나 앱 크래시 로그를 확인하여 문제를 진단합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Console' 입력\", 'Console 앱 실행', '최근 시스템 로그 확인', '특정 앱이나 에러 관련 로그 검색']",
+      "category": "시스템 디버깅"
+    },
+    {
+      "id": 86,
+      "title": "Wi-Fi Password로 현재 연결된 WiFi 비밀번호 확인하기.",
+      "description": "현재 연결된 WiFi 네트워크의 비밀번호를 확인하여 다른 기기 연결 시 활용합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['WiFi Password Extension 설치 (필요시)', \"Raycast에서 'WiFi Password' 입력\", 'Show WiFi Password 실행', '관리자 비밀번호 입력', '현재 WiFi 비밀번호 확인']",
+      "category": "네트워크 도구"
+    },
+    {
+      "id": 87,
+      "title": "Keystroke Pro로 키보드 단축키 연습하기.",
+      "description": "macOS와 자주 사용하는 앱들의 키보드 단축키를 학습하고 연습하여 업무 효율성을 높입니다.",
+      "difficulty": "보통",
+      "estimated_time": "2분",
+      "steps": "['Keystroke Pro Extension 설치 (필요시)', \"Raycast에서 'Keystroke' 입력\", 'Keystroke Pro 실행', '연습하고 싶은 앱 선택', '단축키 퀴즈 모드로 학습']",
+      "category": "학습 도구"
+    },
+    {
+      "id": 88,
+      "title": "File Permissions으로 파일 권한 정보 확인하기.",
+      "description": "특정 파일이나 폴더의 읽기/쓰기/실행 권한을 확인하고 필요시 권한을 수정합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "1분 30초",
+      "steps": "['File Permissions Extension 설치 (필요시)', \"Raycast에서 'File Permissions' 입력\", 'Check Permissions 실행', '권한을 확인할 파일 선택', '파일 권한 정보 확인']",
+      "category": "시스템 관리"
+    },
+    {
+      "id": 89,
+      "title": "Markdown Table Generator로 표 생성하기.",
+      "description": "README 파일이나 문서 작성 시 필요한 Markdown 형식의 표를 쉽게 생성합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분 30초",
+      "steps": "['Markdown Table Generator Extension 설치 (필요시)', \"Raycast에서 'Markdown Table' 입력\", 'Table Generator 실행', '행과 열 수 설정', '생성된 Markdown 표 복사']",
+      "category": "텍스트 도구"
+    },
+    {
+      "id": 90,
+      "title": "Energy Saver 설정으로 전력 관리 옵션 조정하기.",
+      "description": "MacBook의 배터리 수명을 연장하기 위해 절전 모드, 디스플레이 꺼짐 시간 등을 조정합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분 30초",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Energy Saver' 또는 'Battery' 입력\", 'Energy Saver 설정 열기', '절전 옵션 확인', '필요에 따라 설정 조정']",
+      "category": "시스템 제어"
+    },
+    {
+      "id": 91,
+      "title": "CPU Temperature Monitor로 시스템 온도 모니터링하기.",
+      "description": "Mac의 CPU 온도를 실시간으로 모니터링하여 과열 상태를 확인하고 시스템 안정성을 점검합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['CPU Temperature Extension 설치 (필요시)', \"Raycast에서 'CPU Temperature' 입력\", 'Temperature Monitor 실행', '현재 CPU 온도 확인', '온도 변화 추이 모니터링']",
+      "category": "시스템 모니터링"
+    },
+    {
+      "id": 92,
+      "title": "Trash Manager로 휴지통 관리하기.",
+      "description": "휴지통의 용량을 확인하고 선택적으로 파일을 삭제하거나 전체 휴지통을 비워 저장 공간을 확보합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "1분",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Trash' 또는 'Empty Trash' 입력\", 'Trash Manager 실행', '휴지통 용량 및 파일 개수 확인', '휴지통 비우기 실행']",
+      "category": "파일 관리"
+    },
+    {
+      "id": 93,
+      "title": "API Testing Tool로 REST API 요청 테스트하기.",
+      "description": "개발 중인 API 엔드포인트에 GET, POST 등의 HTTP 요청을 보내고 응답을 확인합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분 30초",
+      "steps": "['API Testing Extension 설치', \"Raycast에서 'API Test' 입력\", 'API Testing Tool 실행', '요청 URL과 메소드 설정', '요청 전송 후 응답 확인']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 94,
+      "title": "Virtual Desktop Manager로 가상 데스크탑 전환하기.",
+      "description": "macOS의 Mission Control 가상 데스크탑 간에 빠르게 전환하여 작업 공간을 효율적으로 관리합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['Virtual Desktop Extension 설치 (필요시)', \"Raycast에서 'Desktop' 입력\", 'Switch Desktop 실행', '이동할 데스크탑 번호 선택', '가상 데스크탑 전환 확인']",
+      "category": "윈도우 관리"
+    },
+    {
+      "id": 95,
+      "title": "Backup Status로 Time Machine 백업 상태 확인하기.",
+      "description": "macOS Time Machine의 마지막 백업 시간과 상태를 확인하여 데이터 보호 상황을 점검합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "45초",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Time Machine' 또는 'Backup' 입력\", 'Time Machine 상태 확인', '마지막 백업 시간 확인', '필요시 수동 백업 실행']",
+      "category": "데이터 관리"
+    },
+    {
+      "id": 96,
+      "title": "Firewall Settings로 방화벽 상태 확인 및 설정하기.",
+      "description": "macOS 내장 방화벽의 활성화 상태를 확인하고 필요시 설정을 조정하여 보안을 강화합니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분 30초",
+      "steps": "['Cmd+Space로 Raycast 실행', \"'Firewall' 또는 'Security' 입력\", 'Security & Privacy 설정 열기', '방화벽 탭으로 이동', '방화벽 상태 확인 및 설정']",
+      "category": "보안 설정"
+    },
+    {
+      "id": 97,
+      "title": "Code Formatter로 소스 코드 정리하기.",
+      "description": "작성한 JavaScript, Python, JSON 등의 코드를 표준 형식에 맞게 자동으로 정리하고 들여쓰기를 맞춥니다.",
+      "difficulty": "보통",
+      "estimated_time": "1분",
+      "steps": "['Code Formatter Extension 설치 (필요시)', \"Raycast에서 'Code Formatter' 입력\", 'Code Formatter 실행', '정리할 코드 붙여넣기', '포맷팅된 코드 결과 복사']",
+      "category": "개발 도구"
+    },
+    {
+      "id": 98,
+      "title": "Raycast 단축키 설정 백업 및 복원하기.",
+      "description": "현재 설정한 Raycast의 모든 단축키와 설정을 백업하고 다른 Mac에서 복원할 수 있도록 내보내기합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": "['Raycast 설정 열기 (Cmd+,)', 'Advanced 또는 Export 섹션 찾기', 'Export Settings 선택', '백업 파일 저장 위치 지정', '설정 파일 백업 완료 확인']",
+      "category": "설정 관리"
+    },
+    {
+      "id": 99,
+      "title": "Performance Monitor로 시스템 전체 성능 분석하기.",
+      "description": "CPU, 메모리, 디스크, 네트워크 사용률을 종합적으로 모니터링하여 시스템 병목 지점을 파악합니다.",
+      "difficulty": "어려움",
+      "estimated_time": "2분",
+      "steps": "['Performance Monitor Extension 설치 (필요시)', \"Raycast에서 'Performance Monitor' 입력\", 'System Performance 실행', 'CPU, 메모리, 디스크 사용률 확인', '성능 지표 분석 및 기록']",
+      "category": "시스템 분석"
+    },
+    {
+      "id": 100,
+      "title": "Raycast Community Hub에서 새로운 Extension 발견하기.",
+      "description": "Raycast의 확장성을 최대한 활용하기 위해 커뮤니티에서 개발된 유용한 Extension을 발견하고 설치합니다.",
+      "difficulty": "쉬움",
+      "estimated_time": "2분",
+      "steps": "[\"Raycast에서 'Store' 또는 'Extensions' 입력\", 'Browse Extensions 실행', '카테고리별로 Extension 탐색', '평점과 리뷰가 좋은 Extension 선택', '새로운 Extension 설치 및 테스트']",
+      "category": "확장 탐색"
     }
   ]
 }
