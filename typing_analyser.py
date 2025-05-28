@@ -17,6 +17,53 @@ def read_char():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return char
 
+def get_tldr_description(command):
+    """tldr 명령어를 사용하여 명령어 설명을 가져오는 함수 (첫 번째 설명 줄만)"""
+    try:
+        # 명령어에서 첫 번째 단어만 추출 (파이프나 옵션 제거)
+        base_command = command.split()[0] if command.split() else command
+        
+        # 특수문자 제거 (sudo, &&, || 등 처리)
+        if base_command in ['sudo', 'nohup']:
+            # sudo나 nohup 다음의 실제 명령어 찾기
+            parts = command.split()
+            if len(parts) > 1:
+                base_command = parts[1]
+        
+        # tldr 명령어 실행
+        result = subprocess.run(
+            ['tldr', base_command], 
+            capture_output=True, 
+            text=True, 
+            timeout=5
+        )
+        
+        if result.returncode == 0:
+            lines = result.stdout.strip().split('\n')
+            # 두 번째 줄이 보통 설명 (첫 번째 줄은 명령어 이름)
+            if len(lines) >= 2:
+                description_line = lines[1].strip()
+                # 빈 줄이 아닌 경우 반환
+                if description_line:
+                    return description_line
+            
+            # 두 번째 줄이 비어있거나 없으면 세 번째 줄부터 찾기
+            for line in lines[2:]:
+                line = line.strip()
+                if line and not line.startswith('-') and not line.startswith('More information'):
+                    return line
+                    
+            return f"'{base_command}' 명령어 설명"
+        else:
+            return f"'{base_command}' 명령어에 대한 설명을 찾을 수 없습니다."
+            
+    except subprocess.TimeoutExpired:
+        return "tldr 명령어 실행 시간 초과"
+    except FileNotFoundError:
+        return "tldr 명령어가 설치되어 있지 않습니다. 'npm install -g tldr' 또는 'pip install tldr' 로 설치하세요."
+    except Exception as e:
+        return f"tldr 실행 중 오류: {e}"
+
 def get_shell_history():
     """shell history에서 명령어들을 가져오는 함수"""
     try:
@@ -121,6 +168,14 @@ def main():
     
     # 랜덤하게 명령어 선택
     selected_command = random.choice(commands)
+    
+    # tldr 설명 가져오기
+    print("명령어 설명을 가져오는 중...")
+    description = get_tldr_description(selected_command)
+    
+    print(f"\n명령어 설명:")
+    print(f"\033[94m{description}\033[0m")
+    print()
     
     print(f"다음 명령어를 입력하세요:")
     print(f"\033[96m{selected_command}\033[0m")
