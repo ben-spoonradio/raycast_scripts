@@ -11,6 +11,12 @@ Raycast 실기시험 도구와 다양한 유틸리티 스크립트를 포함한 
 - **다양한 데이터 형식 지원**: JSON, Excel 파일 모두 지원
 - **상세한 문제 정보**: 난이도, 예상 소요시간, 카테고리, 단계별 설명 포함
 
+### ⌨️ 타이핑 연습 도구
+- **쉘 히스토리 기반 연습**: 실제 사용한 명령어로 타이핑 연습
+- **tldr 통합**: 명령어에 대한 설명과 함께 학습
+- **실시간 피드백**: 타이핑한 글자의 정확성을 색상으로 표시
+- **성능 측정**: 타이핑 속도(글자/분)와 정확도 계산
+
 ### 🎵 오디오 변환 도구
 - **WAV to MP3 변환**: FFmpeg를 사용한 오디오 포맷 변환
 - **Whisper 음성 인식**: OpenAI Whisper + 화자 구분 기능
@@ -57,6 +63,11 @@ pip install pandas openpyxl pyperclip openai-whisper anthropic
 
 # Homebrew 도구 일괄 설치
 brew install ffmpeg ghostscript bat
+
+# tldr 설치 (타이핑 연습용)
+npm install -g tldr
+# 또는
+pip install tldr
 ```
 
 #### 개별 설치 (필요한 기능만)
@@ -77,6 +88,14 @@ brew install ffmpeg
 brew install ghostscript
 ```
 
+**타이핑 연습 도구 사용하는 경우:**
+```bash
+# tldr 설치
+npm install -g tldr
+# 또는
+pip install tldr
+```
+
 **코드 리뷰 구문 강조 (선택사항):**
 ```bash
 brew install bat
@@ -93,7 +112,13 @@ python raycast_exam_terminal_ui.py
 python excel_utils.py
 ```
 
-#### 2. 오디오 관련 도구
+#### 2. 타이핑 연습 도구
+```bash
+# 쉘 히스토리 기반 타이핑 연습
+python typing_analyser.py
+```
+
+#### 3. 오디오 관련 도구
 ```bash
 # WAV → MP3 변환
 python convert_wav_to_mp3.py
@@ -102,13 +127,13 @@ python convert_wav_to_mp3.py
 python whisper_with_speaker_diarization.py [오디오_파일_경로]
 ```
 
-#### 3. PDF 최적화
+#### 4. PDF 최적화
 ```bash
 # PDF 파일 최적화 (Finder에서 선택한 파일)
 python optimize_finder_pdfs.py
 ```
 
-#### 4. 코드 리뷰 관리
+#### 5. 코드 리뷰 관리
 ```bash
 # 코드 리뷰 생성 및 표시
 ./show_review.sh
@@ -174,6 +199,7 @@ raycast_scripts/
 ├── README.md                              # 이 파일
 ├── CLAUDE.md                              # Claude Code 지침서
 ├── raycast_exam_terminal_ui.py            # Raycast 실기시험 터미널 UI
+├── typing_analyser.py                     # 쉘 히스토리 기반 타이핑 연습 도구
 ├── excel_utils.py                         # Excel ↔ JSON 변환 유틸리티
 ├── convert_wav_to_mp3.py                  # WAV → MP3 변환 스크립트
 ├── whisper_with_speaker_diarization.py    # Whisper 음성 인식 + 화자 구분
