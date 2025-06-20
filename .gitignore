@@ -1,3 +1,12 @@
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
 # OpenAI 코드 리뷰 및 커밋 메시지 관련 파일
 openai_config.cfg
 code_review_feedback.md

@@ -47,7 +47,7 @@ Raycast 실기시험 도구와 다양한 유틸리티 스크립트를 포함한 
 
 ### 시스템 요구사항
 ```bash
-# Python 3.6+ 필요
+# Python 3.7+ 필요
 python --version
 
 # macOS에서 Homebrew 설치 (필요시)
@@ -68,6 +68,9 @@ brew install ffmpeg ghostscript bat
 npm install -g tldr
 # 또는
 pip install tldr
+
+# pyaudio 설치 (오디오 처리용)
+pip install pyaudio
 ```
 
 #### 개별 설치 (필요한 기능만)
@@ -79,7 +82,7 @@ pip install pandas openpyxl
 
 **오디오 변환/인식 기능 사용하는 경우:**
 ```bash
-pip install pyperclip openai-whisper anthropic
+pip install pyperclip openai-whisper anthropic pyaudio
 brew install ffmpeg
 ```
 
