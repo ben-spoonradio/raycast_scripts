@@ -57,6 +57,23 @@ fi
 
 echo -e "${GREEN}✓ Python 3.10 found at: $PYTHON_PATH${NC}"
 
+# Install Oh My Zsh if not already installed
+echo ""
+echo "📍 Checking Oh My Zsh installation..."
+if [ -d "$HOME/.oh-my-zsh" ]; then
+    echo -e "${GREEN}✓ Oh My Zsh is already installed${NC}"
+else
+    echo -e "${YELLOW}Installing Oh My Zsh...${NC}"
+    # Install Oh My Zsh non-interactively
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    
+    if [ -d "$HOME/.oh-my-zsh" ]; then
+        echo -e "${GREEN}✓ Oh My Zsh installed successfully${NC}"
+    else
+        echo -e "${RED}Failed to install Oh My Zsh. Continuing without it...${NC}"
+    fi
+fi
+
 # Configure .zshrc with Python alias
 echo ""
 echo "📍 Configuring Python alias in .zshrc..."
@@ -270,6 +287,49 @@ if $PYTHON_PATH -c "import curses, pandas, openpyxl" 2>/dev/null; then
 else
     echo -e "${RED}✗ Some core dependencies are missing${NC}"
     exit 1
+fi
+
+# Optional: Install useful Oh My Zsh plugins
+if [ -d "$HOME/.oh-my-zsh" ]; then
+    echo ""
+    echo "📍 Would you like to install useful Oh My Zsh plugins? (y/n)"
+    read -r omz_plugins_response
+    
+    if [[ "$omz_plugins_response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        # Install zsh-autosuggestions
+        AUTOSUGGESTIONS_PATH="${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+        if [ -d "$AUTOSUGGESTIONS_PATH" ]; then
+            echo -e "  ${GREEN}✓ zsh-autosuggestions is already installed${NC}"
+        else
+            echo -e "  ${YELLOW}Installing zsh-autosuggestions...${NC}"
+            git clone https://github.com/zsh-users/zsh-autosuggestions "$AUTOSUGGESTIONS_PATH"
+        fi
+        
+        # Install zsh-syntax-highlighting
+        SYNTAX_HIGHLIGHTING_PATH="${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+        if [ -d "$SYNTAX_HIGHLIGHTING_PATH" ]; then
+            echo -e "  ${GREEN}✓ zsh-syntax-highlighting is already installed${NC}"
+        else
+            echo -e "  ${YELLOW}Installing zsh-syntax-highlighting...${NC}"
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$SYNTAX_HIGHLIGHTING_PATH"
+        fi
+        
+        # Update plugins in .zshrc
+        if grep -q "^plugins=" "$ZSHRC"; then
+            # Check if plugins are already added
+            if ! grep -q "zsh-autosuggestions" "$ZSHRC" || ! grep -q "zsh-syntax-highlighting" "$ZSHRC"; then
+                echo -e "  ${YELLOW}Updating plugins in .zshrc...${NC}"
+                # Get current plugins and add new ones
+                sed -i '' 's/^plugins=(\(.*\))/plugins=(\1 zsh-autosuggestions zsh-syntax-highlighting)/' "$ZSHRC"
+                # Clean up any duplicate entries
+                sed -i '' 's/zsh-autosuggestions zsh-autosuggestions/zsh-autosuggestions/g' "$ZSHRC"
+                sed -i '' 's/zsh-syntax-highlighting zsh-syntax-highlighting/zsh-syntax-highlighting/g' "$ZSHRC"
+                echo -e "  ${GREEN}✓ Plugins added to .zshrc${NC}"
+            else
+                echo -e "  ${GREEN}✓ Plugins already configured in .zshrc${NC}"
+            fi
+        fi
+    fi
 fi
 
 echo ""
