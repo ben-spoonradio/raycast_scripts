@@ -74,37 +74,40 @@ else
     fi
 fi
 
-# Configure .zshrc with Python alias
+# Configure .zshrc with minimal aliases: python -> python3.10, pip -> python3.10 -m pip
 echo ""
-echo "📍 Configuring Python alias in .zshrc..."
+echo "📍 Configuring minimal Python/pip aliases in .zshrc..."
 ZSHRC="$HOME/.zshrc"
 
-# Check if alias already exists with the correct path
-EXISTING_PYTHON_ALIAS=$(grep "^alias python=" "$ZSHRC" 2>/dev/null | grep -o "'.*'" | tr -d "'")
-EXISTING_PYTHON3_ALIAS=$(grep "^alias python3=" "$ZSHRC" 2>/dev/null | grep -o "'.*'" | tr -d "'")
+# Determine pip alias target: prefer using "python -m pip" to avoid relying on pip3.10 binary path differences
+PIP_ALIAS_CMD="$PYTHON_PATH -m pip"
 
-if [[ "$EXISTING_PYTHON_ALIAS" == "$PYTHON_PATH" ]] && [[ "$EXISTING_PYTHON3_ALIAS" == "$PYTHON_PATH" ]]; then
-    echo -e "${GREEN}✓ Python aliases already correctly configured in .zshrc${NC}"
+# Read existing alias targets (if any)
+EXISTING_PYTHON_ALIAS=$(grep "^alias python=" "$ZSHRC" 2>/dev/null | grep -o "'.*'" | tr -d "'")
+EXISTING_PIP_ALIAS=$(grep "^alias pip=" "$ZSHRC" 2>/dev/null | grep -o "'.*'" | tr -d "'")
+
+if [[ "$EXISTING_PYTHON_ALIAS" == "$PYTHON_PATH" ]] && [[ "$EXISTING_PIP_ALIAS" == "$PIP_ALIAS_CMD" ]]; then
+    echo -e "${GREEN}✓ python/pip aliases already correctly configured in .zshrc${NC}"
 else
+    echo -e "${YELLOW}Updating python/pip aliases in .zshrc...${NC}"
     # Remove old aliases if they exist
-    if grep -q "^alias python=" "$ZSHRC" 2>/dev/null || grep -q "^alias python3=" "$ZSHRC" 2>/dev/null; then
-        echo -e "${YELLOW}Updating existing Python aliases...${NC}"
-        sed -i '' '/^alias python=/d' "$ZSHRC"
-        sed -i '' '/^alias python3=/d' "$ZSHRC"
-        # Also remove the comment line if it exists
-        sed -i '' '/# Python 3.10 alias (added by Raycast Scripts setup)/d' "$ZSHRC"
-    fi
-    
-    # Add new aliases
+    sed -i '' '/^alias python=/d' "$ZSHRC" 2>/dev/null || true
+    sed -i '' '/^alias pip=/d' "$ZSHRC" 2>/dev/null || true
+    # Also remove the previous comment line if it exists
+    sed -i '' '/# Python 3.10 alias (added by Raycast Scripts setup)/d' "$ZSHRC" 2>/dev/null || true
+
+    # Add new minimal aliases
     echo "" >> "$ZSHRC"
     echo "# Python 3.10 alias (added by Raycast Scripts setup)" >> "$ZSHRC"
     echo "alias python='$PYTHON_PATH'" >> "$ZSHRC"
-    echo "alias python3='$PYTHON_PATH'" >> "$ZSHRC"
-    echo -e "${GREEN}✓ Added Python alias to .zshrc${NC}"
+    echo "alias pip='$PIP_ALIAS_CMD'" >> "$ZSHRC"
+
+    echo -e "${GREEN}✓ Added minimal python/pip aliases to .zshrc${NC}"
 fi
 
-# Source .zshrc for current session
-source "$ZSHRC"
+# Source .zshrc for current session (only affects current shell)
+# Note: New terminal sessions will pick this up automatically.
+source "$ZSHRC" 2>/dev/null || true
 
 # Update PATH for current script execution
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
@@ -115,7 +118,7 @@ echo "📍 Verifying Python installation..."
 PYTHON_VERSION=$($PYTHON_PATH -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
 echo -e "${GREEN}✓ Python $PYTHON_VERSION is configured${NC}"
 
-# Check if pip is installed
+# Check if pip is installed (module form)
 echo ""
 echo "📍 Checking pip..."
 if ! $PYTHON_PATH -m pip --version &> /dev/null; then
@@ -124,6 +127,9 @@ if ! $PYTHON_PATH -m pip --version &> /dev/null; then
 else
     echo -e "${GREEN}✓ pip is already installed${NC}"
 fi
+
+# Upgrade pip tooling (safer builds)
+$PYTHON_PATH -m pip install --upgrade pip wheel setuptools >/dev/null 2>&1 || true
 
 # Function to check if a Python package is installed
 check_python_package() {
@@ -194,6 +200,8 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
                 $PYTHON_PATH -m pip install "$package"
             fi
         done
+
+        echo -e "  ${YELLOW}Note:${NC} openai-whisper는 PyTorch/ffmpeg 의존으로 설치 시간이 길어질 수 있습니다."
     fi
     
     # PDF optimization
@@ -314,14 +322,11 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
             git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$SYNTAX_HIGHLIGHTING_PATH"
         fi
         
-        # Update plugins in .zshrc
+        # Update plugins in .zshrc (추가되어 있지 않다면 병합)
         if grep -q "^plugins=" "$ZSHRC"; then
-            # Check if plugins are already added
             if ! grep -q "zsh-autosuggestions" "$ZSHRC" || ! grep -q "zsh-syntax-highlighting" "$ZSHRC"; then
                 echo -e "  ${YELLOW}Updating plugins in .zshrc...${NC}"
-                # Get current plugins and add new ones
                 sed -i '' 's/^plugins=(\(.*\))/plugins=(\1 zsh-autosuggestions zsh-syntax-highlighting)/' "$ZSHRC"
-                # Clean up any duplicate entries
                 sed -i '' 's/zsh-autosuggestions zsh-autosuggestions/zsh-autosuggestions/g' "$ZSHRC"
                 sed -i '' 's/zsh-syntax-highlighting zsh-syntax-highlighting/zsh-syntax-highlighting/g' "$ZSHRC"
                 echo -e "  ${GREEN}✓ Plugins added to .zshrc${NC}"
@@ -339,6 +344,6 @@ echo "You can now run:"
 echo "  python raycast_exam_terminal_ui.py   # Run the Raycast exam practice tool"
 echo "  ./show_review.sh                     # Display code reviews (if available)"
 echo ""
-echo "Note: Please restart your terminal or run 'source ~/.zshrc' to use the python alias."
+echo "Note: Please restart your terminal or run 'source ~/.zshrc' to apply the python/pip aliases."
 echo ""
 echo "For more information, see README.md"
