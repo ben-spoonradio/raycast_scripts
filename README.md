@@ -86,6 +86,8 @@ pip install pandas openpyxl
 ```bash
 pip install pyperclip openai-whisper anthropic pyaudio
 brew install ffmpeg
+pip install https://github.com/KittenML/KittenTTS/releases/download/0.1/kittentts-0.1.0-py3-none-any.whl
+
 ```
 
 **PDF 최적화 기능 사용하는 경우:**
