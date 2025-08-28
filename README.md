@@ -20,9 +20,11 @@ Raycast 실기시험 도구와 다양한 유틸리티 스크립트를 포함한 
 ### 🎵 오디오 변환 도구
 - **WAV to MP3 변환**: FFmpeg를 사용한 오디오 포맷 변환
 - **Whisper 음성 인식**: OpenAI Whisper + 화자 구분 기능
+- **KittenTTS**: 클립보드 텍스트를 음성으로 변환하는 TTS 기능
 
 ### 📄 PDF 최적화 도구
 - **PDF 압축**: Ghostscript를 사용한 PDF 파일 최적화
+- **PDF 최대 압축**: 이미지 품질을 최대한 압축하여 파일 크기 최소화
 - **Finder 통합**: Finder에서 선택한 파일 직접 처리
 
 ### 📊 Excel 유틸리티
@@ -128,12 +130,18 @@ python convert_wav_to_mp3.py
 
 # Whisper 음성 인식 (화자 구분 포함)
 python whisper_with_speaker_diarization.py [오디오_파일_경로]
+
+# KittenTTS (클립보드 텍스트 → 음성 변환)
+python KittenTTS.py
 ```
 
 #### 4. PDF 최적화
 ```bash
 # PDF 파일 최적화 (Finder에서 선택한 파일)
 python optimize_finder_pdfs.py
+
+# PDF 최대 압축 (Finder에서 선택한 파일)
+python max_compress_finder_pdfs.py
 ```
 
 #### 5. 코드 리뷰 관리
@@ -206,7 +214,9 @@ raycast_scripts/
 ├── excel_utils.py                         # Excel ↔ JSON 변환 유틸리티
 ├── convert_wav_to_mp3.py                  # WAV → MP3 변환 스크립트
 ├── whisper_with_speaker_diarization.py    # Whisper 음성 인식 + 화자 구분
+├── KittenTTS.py                            # 클립보드 텍스트 → 음성 변환 TTS
 ├── optimize_finder_pdfs.py                # PDF 최적화 스크립트
+├── max_compress_finder_pdfs.py            # PDF 최대 압축 스크립트
 ├── show_review.sh                         # 코드 리뷰 관리 스크립트
 ├── questions.json                         # JSON 문제 데이터
 ├── questions.xlsx                         # Excel 문제 데이터
