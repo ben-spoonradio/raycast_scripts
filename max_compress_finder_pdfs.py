@@ -3,7 +3,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title  PDF Heavy Compression
+# @raycast.title  PDF Max Compression
 # @raycast.mode fullOutput
 
 # Optional parameters:
