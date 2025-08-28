@@ -272,7 +272,7 @@ def main():
     for pdf in pdfs:
         inp = Path(pdf)
         out_dir = inp.parent
-        out_name = f"{sanitize_filename(inp.stem)}_optimized_native.pdf"
+        out_name = f"{sanitize_filename(inp.stem)}_max_compressed.pdf"
         out_path = out_dir / out_name
 
         print(f"\n처리 중: {inp}")
