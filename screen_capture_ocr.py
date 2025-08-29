@@ -269,19 +269,19 @@ class ScreenCaptureOCR:
             extracted_text = self.extract_text_from_image(image_path)
             
             # 5. 텍스트 저장
-            text_file_path = self.save_extracted_text(
-                extracted_text, 
-                os.path.basename(pdf_path)
-            )
+            # text_file_path = self.save_extracted_text(
+            #     extracted_text, 
+            #     os.path.basename(pdf_path)
+            # )
             
-            print("\n" + "="*60)
-            print("📋 추출된 텍스트 미리보기:")
-            print("="*60)
-            # 처음 500자만 미리보기
-            preview_text = extracted_text[:500] + ("..." if len(extracted_text) > 500 else "")
-            print(preview_text)
-            print("="*60)
-            print(f"📁 전체 텍스트 파일: {text_file_path}")
+            # print("\n" + "="*60)
+            # print("📋 추출된 텍스트 미리보기:")
+            # print("="*60)
+            # # 처음 500자만 미리보기
+            # preview_text = extracted_text[:500] + ("..." if len(extracted_text) > 500 else "")
+            # print(preview_text)
+            # print("="*60)
+            # print(f"📁 전체 텍스트 파일: {text_file_path}")
             print(f"📄 PDF 파일: {pdf_path}")
             
         except Exception as e:
