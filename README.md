@@ -22,6 +22,16 @@ Raycast 실기시험 도구와 다양한 유틸리티 스크립트를 포함한 
 - **Whisper 음성 인식**: OpenAI Whisper + 화자 구분 기능
 - **KittenTTS**: 클립보드 텍스트를 음성으로 변환하는 TTS 기능
 
+### 📺 YouTube 다운로드 도구
+- **전체 다운로드**: YouTube 비디오와 오디오를 함께 다운로드
+- **오디오만 다운로드**: YouTube 동영상의 음성만 추출
+- **비디오만 다운로드**: YouTube 동영상의 영상만 다운로드
+
+### 📸 스크린 캡처 OCR 도구
+- **화면 캡처 OCR**: 스크린샷에서 텍스트 추출 및 PDF 변환
+- **다양한 캡처 방식**: 전체 화면, 특정 영역, 창, 클립보드 이미지 처리
+- **텍스트 추출**: OCR을 통한 이미지 내 텍스트 인식
+
 ### 📄 PDF 최적화 도구
 - **PDF 압축**: Ghostscript를 사용한 PDF 파일 최적화
 - **PDF 최대 압축**: 이미지 품질을 최대한 압축하여 파일 크기 최소화
@@ -61,18 +71,18 @@ python --version
 #### 한번에 모든 의존성 설치
 ```bash
 # Python 라이브러리 일괄 설치
-pip install pandas openpyxl pyperclip openai-whisper anthropic
+pip install pandas openpyxl pyperclip openai-whisper anthropic pyaudio yt-dlp requests pytesseract pillow reportlab
 
 # Homebrew 도구 일괄 설치
-brew install ffmpeg ghostscript bat
+brew install ffmpeg ghostscript bat tesseract
 
 # tldr 설치 (타이핑 연습용)
 npm install -g tldr
 # 또는
 pip install tldr
 
-# pyaudio 설치 (오디오 처리용)
-pip install pyaudio
+# KittenTTS 설치
+pip install https://github.com/KittenML/KittenTTS/releases/download/0.1/kittentts-0.1.0-py3-none-any.whl
 ```
 
 #### 개별 설치 (필요한 기능만)
@@ -87,7 +97,17 @@ pip install pandas openpyxl
 pip install pyperclip openai-whisper anthropic pyaudio
 brew install ffmpeg
 pip install https://github.com/KittenML/KittenTTS/releases/download/0.1/kittentts-0.1.0-py3-none-any.whl
+```
 
+**YouTube 다운로드 기능 사용하는 경우:**
+```bash
+pip install yt-dlp requests
+```
+
+**스크린 캡처 OCR 기능 사용하는 경우:**
+```bash
+pip install pytesseract pillow reportlab
+brew install tesseract
 ```
 
 **PDF 최적화 기능 사용하는 경우:**
@@ -137,7 +157,25 @@ python whisper_with_speaker_diarization.py [오디오_파일_경로]
 python KittenTTS.py
 ```
 
-#### 4. PDF 최적화
+#### 4. YouTube 다운로드 도구
+```bash
+# 전체 다운로드 (비디오 + 오디오)
+python youtube_all_downloader.py
+
+# 오디오만 다운로드
+python youtube_audio_downloader.py
+
+# 비디오만 다운로드
+python youtube_video_downloader.py
+```
+
+#### 5. 스크린 캡처 OCR
+```bash
+# 스크린 캡처 후 OCR 처리 및 PDF 변환
+python screen_capture_ocr.py
+```
+
+#### 6. PDF 최적화
 ```bash
 # PDF 파일 최적화 (Finder에서 선택한 파일)
 python optimize_finder_pdfs.py
@@ -146,7 +184,7 @@ python optimize_finder_pdfs.py
 python max_compress_finder_pdfs.py
 ```
 
-#### 5. 코드 리뷰 관리
+#### 7. 코드 리뷰 관리
 ```bash
 # 코드 리뷰 생성 및 표시
 ./show_review.sh
@@ -216,7 +254,11 @@ raycast_scripts/
 ├── excel_utils.py                         # Excel ↔ JSON 변환 유틸리티
 ├── convert_wav_to_mp3.py                  # WAV → MP3 변환 스크립트
 ├── whisper_with_speaker_diarization.py    # Whisper 음성 인식 + 화자 구분
-├── KittenTTS.py                            # 클립보드 텍스트 → 음성 변환 TTS
+├── KittenTTS.py                           # 클립보드 텍스트 → 음성 변환 TTS
+├── youtube_all_downloader.py              # YouTube 전체 다운로드 (비디오+오디오)
+├── youtube_audio_downloader.py            # YouTube 오디오만 다운로드
+├── youtube_video_downloader.py            # YouTube 비디오만 다운로드
+├── screen_capture_ocr.py                  # 스크린 캡처 OCR 및 PDF 변환
 ├── optimize_finder_pdfs.py                # PDF 최적화 스크립트
 ├── max_compress_finder_pdfs.py            # PDF 최대 압축 스크립트
 ├── show_review.sh                         # 코드 리뷰 관리 스크립트
