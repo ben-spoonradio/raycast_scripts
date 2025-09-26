@@ -74,12 +74,7 @@ python --version
 pip install pandas openpyxl pyperclip openai-whisper anthropic pyaudio yt-dlp requests pytesseract pillow reportlab
 
 # Homebrew 도구 일괄 설치
-brew install ffmpeg ghostscript bat tesseract
-
-# tldr 설치 (타이핑 연습용)
-npm install -g tldr
-# 또는
-pip install tldr
+brew install ffmpeg ghostscript bat tesseract tldr
 
 # KittenTTS 설치
 pip install https://github.com/KittenML/KittenTTS/releases/download/0.1/kittentts-0.1.0-py3-none-any.whl
@@ -117,9 +112,10 @@ brew install ghostscript
 
 **타이핑 연습 도구 사용하는 경우:**
 ```bash
-# tldr 설치
+# tldr 설치 (Homebrew 권장)
+brew install tldr
+# 또는 Node.js/Python 버전
 npm install -g tldr
-# 또는
 pip install tldr
 ```
 

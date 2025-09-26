@@ -4,7 +4,7 @@
 # Required parameters:
 # @raycast.schemaVersion 1
 # @raycast.title Screen Capture OCR
-# @raycast.mode fullOutput
+# @raycast.mode silent
 
 # Optional parameters:
 # @raycast.icon 📸
@@ -77,9 +77,25 @@ class ScreenCaptureOCR:
         else:
             raise Exception(f"스크린샷 캡쳐 실패: {result.stderr}")
 
+    def hide_raycast(self):
+        """Raycast 창 숨기기"""
+        applescript = '''
+        tell application "System Events"
+            tell process "Raycast"
+                set visible to false
+            end tell
+        end tell
+        '''
+        subprocess.run(["osascript", "-e", applescript], capture_output=True)
+
     def capture_screen_region(self) -> str:
         """영역 선택 캡쳐"""
-        print("📸 캡쳐할 영역을 선택해주세요...")
+        print("📸 Raycast 창을 숨기고 캡쳐할 영역을 선택해주세요...")
+        
+        # Raycast 창 숨기기
+        self.hide_raycast()
+        time.sleep(1)  # 창이 숨겨질 시간
+        
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         screenshot_path = self.temp_dir / f"screenshot_region_{timestamp}.png"
         
