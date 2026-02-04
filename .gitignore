@@ -16,3 +16,6 @@ output/
 
 # Confluence configuration (contains personal/company info)
 confluence_config.yaml
+
+# Code review files
+reviews/
