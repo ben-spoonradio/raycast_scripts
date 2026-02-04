@@ -59,27 +59,12 @@ TEST_PAGE_IDS = config['download']['test_mode']['page_ids']
 TEST_MAX_PAGES = config['download']['test_mode']['max_pages']
 
 # Legacy folder mapping - kept as fallback for specific page categorization
+# Update with your own Confluence page IDs and folder names
 LEGACY_FOLDER_MAPPING = {
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    # "page_id": "Folder_Name",
+    # Example:
+    # "1234567890": "Feature_Policy",
+    # "1234567891": "Weekly_Reviews",
 }
 
 class ConfluenceDownloader:
