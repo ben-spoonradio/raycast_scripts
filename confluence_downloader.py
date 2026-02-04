@@ -3,12 +3,14 @@
 Confluence Documents Downloader
 Downloads all Korean documents from Confluence Space SM using local API key
 Filters out Japanese documents automatically
+Supports incremental updates (--update flag)
 """
 
 import os
 import json
 import re
 import time
+import sys
 import requests
 import yaml
 from typing import Dict, List, Optional, Tuple
@@ -68,7 +70,9 @@ LEGACY_FOLDER_MAPPING = {
 }
 
 class ConfluenceDownloader:
-    def __init__(self):
+    MANIFEST_FILENAME = ".confluence_manifest.json"
+
+    def __init__(self, update_mode: bool = False):
         if not CONFLUENCE_API_TOKEN:
             raise ValueError("CONFLUENCE_KEY environment variable is required")
 
@@ -89,9 +93,143 @@ class ConfluenceDownloader:
         self.downloaded_count = 0
         self.skipped_count = 0
         self.failed_count = 0
+        self.unchanged_count = 0
 
         # Current page context for relative path calculation
         self.current_page_folder = None
+
+        # Incremental update mode
+        self.update_mode = update_mode
+        self.manifest = self._load_manifest() if update_mode else {}
+
+    def _get_manifest_path(self) -> str:
+        """Get absolute path for the manifest file"""
+        if os.path.isabs(OUTPUT_BASE_DIR):
+            return os.path.join(OUTPUT_BASE_DIR, self.MANIFEST_FILENAME)
+        return os.path.join(os.getcwd(), OUTPUT_BASE_DIR, self.MANIFEST_FILENAME)
+
+    def _load_manifest(self) -> Dict:
+        """Load the manifest of previously downloaded pages.
+        If no manifest exists, build one from existing .md files."""
+        manifest_path = self._get_manifest_path()
+        if os.path.exists(manifest_path):
+            try:
+                with open(manifest_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                print(f"📋 Loaded manifest: {len(data)} pages tracked")
+                return data
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"⚠️  Failed to load manifest ({e}), rebuilding from local files...")
+
+        # No manifest found - try to build from existing downloaded .md files
+        return self._build_manifest_from_files()
+
+    def _build_manifest_from_files(self) -> Dict:
+        """Scan existing .md files and build a manifest from their metadata headers.
+        Each file contains '문서 ID' and '최종 업데이트' in the front matter."""
+        base_dir = OUTPUT_BASE_DIR if os.path.isabs(OUTPUT_BASE_DIR) else os.path.join(os.getcwd(), OUTPUT_BASE_DIR)
+
+        if not os.path.exists(base_dir):
+            print("📋 No manifest and no existing files found, will download all pages")
+            return {}
+
+        print("📋 No manifest found, scanning existing .md files to build manifest...")
+
+        manifest = {}
+        md_files = list(Path(base_dir).rglob("*.md"))
+
+        for md_path in md_files:
+            try:
+                # Read only the first 10 lines (metadata header)
+                with open(md_path, 'r', encoding='utf-8') as f:
+                    header_lines = [f.readline() for _ in range(10)]
+
+                page_id = None
+                updated_date = None
+                title = None
+
+                for line in header_lines:
+                    line = line.strip()
+                    if line.startswith('# ') and title is None:
+                        title = line[2:].strip()
+                    elif line.startswith('**문서 ID:**'):
+                        page_id = line.replace('**문서 ID:**', '').strip()
+                    elif line.startswith('**최종 업데이트:**'):
+                        updated_date = line.replace('**최종 업데이트:**', '').strip()
+
+                if page_id and updated_date and updated_date != 'Unknown':
+                    manifest[page_id] = {
+                        'version': 0,  # Unknown - will fetch from API on first check
+                        'updated_date': updated_date,
+                        'file_path': str(md_path),
+                        'title': title or 'Unknown',
+                        'downloaded_at': datetime.fromtimestamp(md_path.stat().st_mtime).isoformat(),
+                    }
+            except (IOError, UnicodeDecodeError):
+                continue
+
+        if manifest:
+            print(f"📋 Built manifest from {len(manifest)} existing files")
+            # Save it immediately so next run is faster
+            manifest_path = self._get_manifest_path()
+            os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+            with open(manifest_path, 'w', encoding='utf-8') as f:
+                json.dump(manifest, f, ensure_ascii=False, indent=2)
+            print(f"📋 Saved initial manifest to {manifest_path}")
+        else:
+            print("📋 No existing files with metadata found, will download all pages")
+
+        return manifest
+
+    def _save_manifest(self):
+        """Save the manifest of downloaded pages"""
+        manifest_path = self._get_manifest_path()
+        os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+        try:
+            with open(manifest_path, 'w', encoding='utf-8') as f:
+                json.dump(self.manifest, f, ensure_ascii=False, indent=2)
+            print(f"📋 Manifest saved: {len(self.manifest)} pages tracked")
+        except IOError as e:
+            print(f"⚠️  Failed to save manifest: {e}")
+
+    def _is_page_updated(self, page_id: str, remote_version: int, remote_updated: str) -> bool:
+        """Check if a page needs to be re-downloaded based on version or updated date"""
+        if page_id not in self.manifest:
+            return True  # New page
+
+        local_info = self.manifest[page_id]
+        local_version = local_info.get('version', 0)
+
+        # If we have a real version number, compare directly
+        if local_version > 0:
+            return remote_version > local_version
+
+        # Fallback: manifest was built from files (version=0), compare updated dates
+        local_updated = local_info.get('updated_date', '')
+        if local_updated and remote_updated:
+            try:
+                # Normalize remote_updated (ISO format from API) to comparable format
+                if 'T' in str(remote_updated):
+                    remote_dt = datetime.fromisoformat(str(remote_updated).replace('Z', '+00:00'))
+                    remote_str = remote_dt.strftime('%Y-%m-%d %H:%M:%S')
+                else:
+                    remote_str = str(remote_updated)
+                return remote_str != local_updated
+            except (ValueError, TypeError):
+                pass
+
+        # If we can't compare, re-download to be safe
+        return True
+
+    def _update_manifest_entry(self, page_id: str, version: int, updated_date: str, file_path: str, title: str):
+        """Update manifest with page download info"""
+        self.manifest[page_id] = {
+            'version': version,
+            'updated_date': updated_date,
+            'file_path': file_path,
+            'title': title,
+            'downloaded_at': datetime.now().isoformat(),
+        }
 
     def is_japanese_document(self, title: str, content: str = "") -> bool:
         """Determine if a document is primarily Japanese content"""
@@ -1784,6 +1922,15 @@ class ConfluenceDownloader:
             self.skipped_count += 1
             return True
 
+        # In update mode, check if page has changed since last download
+        if self.update_mode:
+            version_info = content_info.get('version', {})
+            remote_version = version_info.get('number', 0)
+            remote_updated = version_info.get('when', '')
+            if not self._is_page_updated(page_id, remote_version, remote_updated):
+                self.unchanged_count += 1
+                return True
+
         print(f"Downloading: {title}")
 
         # Get full page content
@@ -1912,6 +2059,11 @@ class ConfluenceDownloader:
 
             print(f"Saved: {file_path}")
             self.downloaded_count += 1
+
+            # Update manifest with version info
+            page_version = page_data.get('version', {}).get('number', 0)
+            self._update_manifest_entry(page_id, page_version, updated_date, file_path, title)
+
             return True
 
         except Exception as e:
@@ -1938,6 +2090,8 @@ class ConfluenceDownloader:
         """Download all documents from the space using improved retrieval"""
         print(f"Starting download from Confluence Space: {SPACE_KEY}")
         print(f"Base URL: {CONFLUENCE_BASE_URL}")
+        if self.update_mode:
+            print("🔄 UPDATE MODE: Only downloading new/changed pages")
         print("=" * 60)
 
         # Check test mode
@@ -1969,10 +2123,16 @@ class ConfluenceDownloader:
 
             # Show current stats every 10 pages
             if i % 10 == 0 or not success:
-                print(f"  >> Progress: Downloaded={self.downloaded_count}, Skipped={self.skipped_count}, Failed={self.failed_count}")
+                stats = f"Downloaded={self.downloaded_count}, Skipped={self.skipped_count}, Failed={self.failed_count}"
+                if self.update_mode:
+                    stats += f", Unchanged={self.unchanged_count}"
+                print(f"  >> Progress: {stats}")
 
             # Rate limiting from config
             time.sleep(RATE_LIMIT)
+
+        # Save manifest after download completes
+        self._save_manifest()
 
         # Summary
         print("\n" + "=" * 60)
@@ -1980,11 +2140,24 @@ class ConfluenceDownloader:
         print("=" * 60)
         print(f"Total pages found: {len(pages)}")
         print(f"Successfully downloaded: {self.downloaded_count}")
-        print(f"Skipped (Japanese): {self.skipped_count}")
+        if self.update_mode:
+            print(f"Unchanged (skipped): {self.unchanged_count}")
+        print(f"Skipped (filtered): {self.skipped_count}")
         print(f"Failed: {self.failed_count}")
 
         success_rate = (self.downloaded_count / len(pages) * 100) if pages else 0
         print(f"Success rate: {success_rate:.1f}%")
+
+        if self.update_mode and self.downloaded_count > 0:
+            print(f"\n📝 Updated pages:")
+            for pid, info in self.manifest.items():
+                # Show only pages downloaded in this run
+                try:
+                    dl_time = datetime.fromisoformat(info.get('downloaded_at', ''))
+                    if (datetime.now() - dl_time).total_seconds() < 3600:  # within last hour
+                        print(f"   - {info.get('title', 'Unknown')} (v{info.get('version', '?')})")
+                except (ValueError, TypeError):
+                    pass
 
         if self.failed_count > 0:
             print(f"\nNote: {self.failed_count} pages failed to download. Check the error messages above.")
@@ -1993,6 +2166,25 @@ class ConfluenceDownloader:
 
 def main():
     """Main function"""
+    # Parse command line arguments
+    update_mode = '--update' in sys.argv or '-u' in sys.argv
+    show_help = '--help' in sys.argv or '-h' in sys.argv
+
+    if show_help:
+        print("Confluence Document Downloader")
+        print()
+        print("Usage: python confluence_downloader.py [OPTIONS]")
+        print()
+        print("Options:")
+        print("  (no args)     Full download - download all pages")
+        print("  --update, -u  Incremental update - only download new/changed pages")
+        print("  --help, -h    Show this help message")
+        print()
+        print("The --update flag uses a manifest file (.confluence_manifest.json)")
+        print("to track page versions and only re-downloads pages that have been")
+        print("modified since the last download.")
+        return
+
     try:
         print("=" * 60)
         print("Confluence Document Downloader")
@@ -2008,13 +2200,15 @@ def main():
             print(f"🔧 TEST MODE: Specific pages ({len(TEST_PAGE_IDS)} pages)")
         elif TEST_MAX_PAGES > 0:
             print(f"🔧 TEST MODE: Limited to {TEST_MAX_PAGES} pages")
+        elif update_mode:
+            print("🔄 UPDATE MODE: Incremental download (new/changed only)")
         else:
             print("📥 Full download mode")
 
         print("=" * 60)
         print()
 
-        downloader = ConfluenceDownloader()
+        downloader = ConfluenceDownloader(update_mode=update_mode)
         downloader.download_all()
 
     except FileNotFoundError as e:
