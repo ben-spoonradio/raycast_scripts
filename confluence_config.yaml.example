@@ -1,0 +1,56 @@
+# Confluence Downloader Configuration
+
+# Confluence Settings
+confluence:
+  base_url: "https://your-domain.atlassian.net"
+  space_key: "YOUR_SPACE_KEY"
+  email: "your-email@example.com"  # Update with your email
+  # API token should be set via CONFLUENCE_KEY environment variable
+
+# Output Settings
+output:
+  # Base directory for downloaded documents
+  # Can be absolute path or relative to script location
+  base_dir: "docs/confluence_docs"
+
+  # Whether to create subdirectories based on page hierarchy
+  use_hierarchy: true
+
+  # Maximum directory depth for hierarchy (0 = unlimited)
+  max_depth: 3
+
+# Download Settings
+download:
+  # Batch size for pagination
+  batch_size: 100
+
+  # Rate limiting (seconds between requests)
+  rate_limit: 0.8
+
+  # Maximum retry attempts for failed requests
+  max_retries: 3
+
+  # Request timeout (seconds)
+  timeout: 30
+
+  # Test mode - download only specific pages
+  # Leave empty or comment out to download all pages
+  test_mode:
+    enabled: false
+    # List of page IDs to download (for testing)
+    page_ids: []
+    # Alternative: limit number of pages to download
+    max_pages: 0  # 0 = no limit
+
+# Filtering Settings
+filtering:
+  # Skip Japanese documents automatically
+  skip_japanese: true
+
+  # Custom skip patterns (title contains these strings)
+  skip_patterns:
+    - "[JP]"
+    - "JP ver."
+
+  # Include only specific patterns (empty = include all)
+  include_patterns: []

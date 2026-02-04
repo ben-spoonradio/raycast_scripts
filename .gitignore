@@ -13,3 +13,6 @@ code_review_feedback.md
 debug_request.json
 response.json
 output/
+
+# Confluence configuration (contains personal/company info)
+confluence_config.yaml

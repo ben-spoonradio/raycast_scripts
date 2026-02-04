@@ -182,9 +182,15 @@ python max_compress_finder_pdfs.py
 
 #### 7. 코드 리뷰 관리
 ```bash
-# 코드 리뷰 생성 및 표시
+# 코드 리뷰 생성 및 표시 (code_review_feedback.md 파일 필요)
 ./show_review.sh
 ```
+
+**코드 리뷰 워크플로:**
+1. `code_review_feedback.md` 파일 생성 (리뷰 내용 작성)
+2. `./show_review.sh` 실행하여 타임스탬프가 포함된 리뷰 파일 생성
+3. `reviews/` 디렉토리에 자동으로 저장되며 `bat` 구문 강조로 표시
+4. 파일명 형식: `{project_name}_{commit_hash}_{YYYYMMDD_HHMM}.md`
 
 ## 📊 데이터 관리
 
@@ -261,7 +267,9 @@ raycast_scripts/
 ├── questions.json                         # JSON 문제 데이터
 ├── questions.xlsx                         # Excel 문제 데이터
 ├── questions_from_excel.json              # Excel에서 변환된 문제 데이터
-└── reviews/                               # 코드 리뷰 파일 저장소
+├── code_review_feedback.md                # 코드 리뷰 입력 파일 (show_review.sh 실행 시 필요)
+└── reviews/                               # 타임스탬프가 포함된 코드 리뷰 파일 저장소
+    └── {project}_{hash}_{timestamp}.md    # 자동 생성된 리뷰 파일
 ```
 
 ## 🏆 완료 시 기능
@@ -313,6 +321,7 @@ brew install ffmpeg ghostscript
 - **터미널 크기**: 터미널 창을 충분히 크게 조정 (최소 80x24)
 - **권한 문제**: 스크립트 실행 권한 확인 (`chmod +x show_review.sh`)
 - **AppleScript 권한**: PDF 최적화 시 시스템 접근 권한 허용 필요
+- **코드 리뷰**: `code_review_feedback.md` 파일 존재 여부 확인 (`show_review.sh` 실행 전)
 
 ### API 관련 오류
 - **Anthropic API**: `whisper_with_speaker_diarization.py` 사용시 API 키 설정 확인
