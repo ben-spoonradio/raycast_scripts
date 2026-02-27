@@ -27,6 +27,10 @@ Raycast 실기시험 도구와 다양한 유틸리티 스크립트를 포함한 
 - **오디오만 다운로드**: YouTube 동영상의 음성만 추출
 - **비디오만 다운로드**: YouTube 동영상의 영상만 다운로드
 
+### 📷 인스타그램 릴 다운로드 도구
+- **릴 다운로드**: 인스타그램 릴 영상을 최고 화질로 다운로드
+- **커스텀 저장 경로**: 저장 폴더 지정 가능
+
 ### 📸 스크린 캡처 OCR 도구
 - **화면 캡처 OCR**: 스크린샷에서 텍스트 추출 및 PDF 변환
 - **다양한 캡처 방식**: 전체 화면, 특정 영역, 창, 클립보드 이미지 처리
@@ -94,7 +98,7 @@ brew install ffmpeg
 pip install https://github.com/KittenML/KittenTTS/releases/download/0.1/kittentts-0.1.0-py3-none-any.whl
 ```
 
-**YouTube 다운로드 기능 사용하는 경우:**
+**YouTube / 인스타그램 다운로드 기능 사용하는 경우:**
 ```bash
 pip install yt-dlp requests
 ```
@@ -165,13 +169,25 @@ python youtube_audio_downloader.py
 python youtube_video_downloader.py
 ```
 
-#### 5. 스크린 캡처 OCR
+#### 5. 인스타그램 릴 다운로드
+```bash
+# 릴 다운로드 (URL을 인자로 전달)
+python download_instagram_reel.py "https://www.instagram.com/reel/..."
+
+# 저장 폴더 지정
+python download_instagram_reel.py "https://www.instagram.com/reel/..." -o ./downloads
+
+# URL 없이 실행 시 입력 프롬프트 표시
+python download_instagram_reel.py
+```
+
+#### 6. 스크린 캡처 OCR
 ```bash
 # 스크린 캡처 후 OCR 처리 및 PDF 변환
 python screen_capture_ocr.py
 ```
 
-#### 6. PDF 최적화
+#### 7. PDF 최적화
 ```bash
 # PDF 파일 최적화 (Finder에서 선택한 파일)
 python optimize_finder_pdfs.py
@@ -180,7 +196,7 @@ python optimize_finder_pdfs.py
 python max_compress_finder_pdfs.py
 ```
 
-#### 7. 코드 리뷰 관리
+#### 8. 코드 리뷰 관리
 ```bash
 # 코드 리뷰 생성 및 표시 (code_review_feedback.md 파일 필요)
 ./show_review.sh
@@ -260,6 +276,7 @@ raycast_scripts/
 ├── youtube_all_downloader.py              # YouTube 전체 다운로드 (비디오+오디오)
 ├── youtube_audio_downloader.py            # YouTube 오디오만 다운로드
 ├── youtube_video_downloader.py            # YouTube 비디오만 다운로드
+├── download_instagram_reel.py             # 인스타그램 릴 다운로드
 ├── screen_capture_ocr.py                  # 스크린 캡처 OCR 및 PDF 변환
 ├── optimize_finder_pdfs.py                # PDF 최적화 스크립트
 ├── max_compress_finder_pdfs.py            # PDF 최대 압축 스크립트
