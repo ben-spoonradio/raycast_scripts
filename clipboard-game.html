@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clipboard History Game</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  h1 { font-size: 2rem; margin-bottom: 0.3rem; }
+  .subtitle { color: #94a3b8; margin-bottom: 2rem; font-size: 0.95rem; }
+  .score-bar {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  .score-bar span { color: #38bdf8; font-weight: bold; }
+  .game-area {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+  }
+
+  /* Phase indicator */
+  .phase-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .phase-badge.copy { background: #7c3aed33; color: #a78bfa; border: 1px solid #7c3aed55; }
+  .phase-badge.paste { background: #05966933; color: #6ee7b7; border: 1px solid #05966955; }
+
+  .round-label { font-size: 0.9rem; color: #64748b; margin-bottom: 0.8rem; }
+
+  /* Copy phase: items list */
+  .copy-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .copy-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    transition: all 0.3s;
+  }
+  .copy-item.active {
+    border-color: #7c3aed;
+    box-shadow: 0 0 16px #7c3aed33;
+  }
+  .copy-item.done {
+    border-color: #22c55e55;
+    opacity: 0.5;
+  }
+  .copy-item.waiting {
+    opacity: 0.3;
+  }
+  .copy-item-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    background: #334155;
+    color: #94a3b8;
+  }
+  .copy-item.active .copy-item-num { background: #7c3aed; color: white; }
+  .copy-item.done .copy-item-num { background: #22c55e; color: white; }
+  .copy-item-text {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    word-break: break-all;
+    flex: 1;
+    text-align: left;
+  }
+  .copy-item.waiting .copy-item-text { visibility: hidden; }
+  .copy-item-status {
+    font-size: 0.8rem;
+    color: #64748b;
+    flex-shrink: 0;
+  }
+  .copy-item.done .copy-item-status { color: #22c55e; }
+
+  .copy-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #7c3aed, #6366f1);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .copy-btn:hover { transform: scale(1.05); }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* Paste phase: target */
+  .paste-target {
+    background: #0f172a;
+    border: 2px solid #059669;
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .paste-target-label {
+    font-size: 0.85rem;
+    color: #6ee7b7;
+    margin-bottom: 0.5rem;
+  }
+  .paste-target-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #059669;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .paste-target-preview {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: #94a3b8;
+    letter-spacing: 1px;
+  }
+  .paste-target-preview .masked { color: #475569; }
+
+  .paste-area {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace;
+    border: 2px solid #334155;
+    border-radius: 10px;
+    background: #0f172a;
+    color: #e2e8f0;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .paste-area:focus { border-color: #059669; }
+  .paste-area::placeholder { color: #475569; }
+
+  .hint {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.8rem;
+  }
+  .hint kbd {
+    background: #334155;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    border: 1px solid #475569;
+  }
+
+  .timer-bar {
+    width: 100%;
+    height: 6px;
+    background: #334155;
+    border-radius: 3px;
+    margin-top: 1.2rem;
+    overflow: hidden;
+  }
+  .timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+  }
+  .timer-fill.danger { background: linear-gradient(90deg, #f87171, #fb923c); }
+
+  .feedback {
+    margin-top: 0.8rem;
+    font-size: 1.1rem;
+    min-height: 1.5rem;
+    font-weight: bold;
+  }
+  .feedback.correct { color: #4ade80; }
+  .feedback.wrong { color: #f87171; }
+
+  /* Buttons */
+  .btn {
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.1s;
+  }
+  .btn:hover { transform: scale(1.05); }
+  .btn:active { transform: scale(0.97); }
+  .btn-start { background: linear-gradient(135deg, #38bdf8, #818cf8); color: #0f172a; }
+  .btn-restart { background: linear-gradient(135deg, #f97316, #ef4444); color: white; }
+
+  /* Mode select */
+  .mode-select {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .mode-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid #334155;
+    border-radius: 8px;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  .mode-btn.active { border-color: #38bdf8; color: #38bdf8; background: #38bdf810; }
+  .mode-btn:hover { border-color: #38bdf8; }
+
+  .mode-detail {
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  .mode-detail strong { color: #e2e8f0; }
+
+  /* Results */
+  .results {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .results h2 { font-size: 1.8rem; }
+  .results .final-score { font-size: 3rem; color: #38bdf8; font-weight: bold; }
+  .results .stats { color: #94a3b8; line-height: 1.8; }
+  .grade { font-size: 1.5rem; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<h1>Clipboard History Game</h1>
+<p class="subtitle">Test your clipboard history skills (Raycast, Alfred, etc.)</p>
+
+<div class="score-bar">
+  <div>Score: <span id="score">0</span></div>
+  <div>Round: <span id="round">0</span> / <span id="totalRounds">8</span></div>
+  <div>Best: <span id="bestTime">-</span></div>
+</div>
+
+<div class="game-area">
+  <!-- Start Screen -->
+  <div id="startScreen">
+    <p style="margin-bottom:1rem; color:#94a3b8;">Select difficulty:</p>
+    <div class="mode-select">
+      <button class="mode-btn active" data-mode="easy">Easy</button>
+      <button class="mode-btn" data-mode="normal">Normal</button>
+      <button class="mode-btn" data-mode="hard">Hard</button>
+      <button class="mode-btn" data-mode="extreme">Extreme</button>
+    </div>
+    <div class="mode-detail" id="modeDetail">
+      <strong>Easy</strong> — Simple copy & paste<br>
+      Copy 1 item and paste it. Basic clipboard test.<br>
+      Time: 10s per round
+    </div>
+    <button class="btn btn-start" onclick="startGame()">Start Game</button>
+  </div>
+
+  <!-- Play Screen -->
+  <div id="playScreen" style="display:none;">
+    <div class="round-label" id="roundLabel">Round 1</div>
+
+    <!-- Copy Phase -->
+    <div id="copyPhase" style="display:none;">
+      <div class="phase-badge copy" id="copyPhaseLabel">COPY PHASE</div>
+      <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:1rem;" id="copyInstruction">
+        Copy each item in order by clicking the button
+      </p>
+      <div class="copy-items" id="copyItems"></div>
+      <button class="copy-btn" id="copyBtn" onclick="copyCurrentItem()">Copy #1</button>
+    </div>
+
+    <!-- Paste Phase -->
+    <div id="pastePhase" style="display:none;">
+      <div class="phase-badge paste">PASTE PHASE</div>
+      <div class="paste-target" id="pasteTarget">
+        <div class="paste-target-label">Find this item from your clipboard history:</div>
+        <div class="paste-target-num" id="targetNum">1</div>
+        <div class="paste-target-preview" id="targetPreview"></div>
+      </div>
+      <input class="paste-area" id="pasteArea" type="text"
+        placeholder="Paste here (Cmd+V or clipboard history)" autocomplete="off" spellcheck="false">
+      <div class="hint" id="pasteHint"></div>
+    </div>
+
+    <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <!-- Result Screen -->
+  <div class="results" id="resultScreen">
+    <h2>Game Over!</h2>
+    <div class="final-score" id="finalScore">0</div>
+    <div class="grade" id="grade"></div>
+    <div class="stats" id="stats"></div>
+    <button class="btn btn-restart" onclick="showStart()">Play Again</button>
+  </div>
+</div>
+
+<script>
+const MODE_CONFIG = {
+  easy: {
+    items: 1,
+    askIndex: 0, // always the current (only) item
+    time: 10000,
+    rounds: 8,
+    gen: () => randomWord(),
+    detail: `<strong>Easy</strong> — Simple copy & paste<br>Copy 1 item and paste it. Basic clipboard test.<br>Time: 10s per round`,
+    hint: 'Just <kbd>Cmd+V</kbd> / <kbd>Ctrl+V</kbd> to paste',
+  },
+  normal: {
+    items: 2,
+    time: 15000,
+    rounds: 8,
+    gen: () => randomWord(),
+    detail: `<strong>Normal</strong> — 2 items, paste a previous one<br>Copy 2 items sequentially, then paste the <em>first</em> one using clipboard history.<br>Time: 15s per round`,
+    hint: 'Use clipboard history: Raycast <kbd>Cmd+Shift+V</kbd> or similar',
+  },
+  hard: {
+    items: 3,
+    time: 20000,
+    rounds: 8,
+    gen: () => randomPhrase(2),
+    detail: `<strong>Hard</strong> — 3 items, paste a random one<br>Copy 3 items sequentially, then paste a randomly chosen one.<br>Time: 20s per round`,
+    hint: 'Search your clipboard history to find the right item',
+  },
+  extreme: {
+    items: 4,
+    time: 25000,
+    rounds: 8,
+    gen: () => randomMixed(8, 12),
+    detail: `<strong>Extreme</strong> — 4 items, mixed characters<br>Copy 4 hard-to-read items, then paste a randomly chosen one.<br>Time: 25s per round`,
+    hint: 'Search clipboard history carefully — characters look similar!',
+  },
+};
+
+const WORDS = [
+  'apple','brave','cloud','dance','eagle','flame','grape','house','ivory','jewel',
+  'knife','lemon','mouse','noble','ocean','piano','queen','river','stone','tiger',
+  'ultra','vivid','whale','xenon','yacht','zebra','blaze','crane','drift','frost',
+  'globe','haven','joker','karma','lunar','maple','nexus','omega','prism','quest',
+  'radar','solar','torch','umbra','venom','wrath','pixel','cyber','delta','spark',
+  'amber','coral','forge','grain','haste','inlet','jolly','knack','lucid','merit',
+];
+
+function randomWord() {
+  return WORDS[Math.floor(Math.random() * WORDS.length)];
+}
+function randomPhrase(count) {
+  const used = new Set();
+  const result = [];
+  while (result.length < count) {
+    const w = WORDS[Math.floor(Math.random() * WORDS.length)];
+    if (!used.has(w)) { used.add(w); result.push(w); }
+  }
+  return result.join(' ');
+}
+function randomMixed(minLen, maxLen) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789!@#$%&*+-=';
+  const len = minLen + Math.floor(Math.random() * (maxLen - minLen + 1));
+  return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+
+// Ensure all generated items in a round are unique
+function generateUniqueItems(count, genFn) {
+  const items = new Set();
+  while (items.size < count) items.add(genFn());
+  return [...items];
+}
+
+let mode = 'easy';
+let currentRound = 0;
+let score = 0;
+let bestTime = Infinity;
+let times = [];
+
+let roundItems = [];
+let copyIndex = 0;
+let targetIndex = 0;
+let targetText = '';
+let timerStart = 0;
+let pasteTimerStart = 0;
+let timerInterval = null;
+let roundTimeout = null;
+let roundActive = false;
+
+// Mode selection
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    document.getElementById('modeDetail').innerHTML = MODE_CONFIG[mode].detail;
+  });
+});
+
+function startGame() {
+  score = 0;
+  currentRound = 0;
+  bestTime = Infinity;
+  times = [];
+  document.getElementById('totalRounds').textContent = MODE_CONFIG[mode].rounds;
+  updateScoreBar();
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('playScreen').style.display = 'block';
+  nextRound();
+}
+
+function showStart() {
+  clearInterval(timerInterval);
+  clearTimeout(roundTimeout);
+  document.getElementById('startScreen').style.display = 'block';
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('playScreen').style.display = 'none';
+}
+
+function nextRound() {
+  const cfg = MODE_CONFIG[mode];
+  if (currentRound >= cfg.rounds) return endGame();
+  currentRound++;
+  roundActive = false;
+
+  // Generate items
+  roundItems = generateUniqueItems(cfg.items, cfg.gen);
+  copyIndex = 0;
+
+  // Determine which item to ask for
+  if (mode === 'easy') {
+    targetIndex = 0;
+  } else if (mode === 'normal') {
+    // always ask for the first one (not the latest)
+    targetIndex = 0;
+  } else {
+    // hard/extreme: random, but NOT the last copied (to force history use)
+    if (cfg.items > 1) {
+      targetIndex = Math.floor(Math.random() * (cfg.items - 1)); // 0 to items-2
+    } else {
+      targetIndex = 0;
+    }
+  }
+  targetText = roundItems[targetIndex];
+
+  document.getElementById('roundLabel').textContent = `Round ${currentRound}`;
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('timerFill').style.width = '100%';
+  document.getElementById('timerFill').classList.remove('danger');
+  updateScoreBar();
+
+  if (mode === 'easy') {
+    startEasyRound();
+  } else {
+    startCopyPhase();
+  }
+
+  // Start round timer
+  timerStart = performance.now();
+  const totalTime = cfg.time;
+  clearInterval(timerInterval);
+  clearTimeout(roundTimeout);
+
+  timerInterval = setInterval(() => {
+    const elapsed = performance.now() - timerStart;
+    const pct = Math.max(0, 1 - elapsed / totalTime) * 100;
+    document.getElementById('timerFill').style.width = pct + '%';
+    if (pct < 30) document.getElementById('timerFill').classList.add('danger');
+  }, 50);
+
+  roundTimeout = setTimeout(() => {
+    if (roundActive || copyIndex < roundItems.length) {
+      roundActive = false;
+      clearInterval(timerInterval);
+      document.getElementById('timerFill').style.width = '0%';
+      document.getElementById('feedback').textContent = 'Time up!';
+      document.getElementById('feedback').className = 'feedback wrong';
+      setTimeout(nextRound, 1200);
+    }
+  }, totalTime);
+}
+
+// ---- EASY MODE: direct copy & paste (same as before) ----
+function startEasyRound() {
+  document.getElementById('copyPhase').style.display = 'none';
+  document.getElementById('pastePhase').style.display = 'block';
+
+  document.getElementById('targetNum').textContent = '1';
+  document.getElementById('targetPreview').innerHTML =
+    `<span style="color:#e2e8f0; font-size:1.3rem;">${escHtml(targetText)}</span>`;
+  document.querySelector('.paste-target-label').textContent = 'Copy this text and paste it below:';
+  document.getElementById('pasteHint').innerHTML = MODE_CONFIG[mode].hint;
+
+  const input = document.getElementById('pasteArea');
+  input.value = '';
+  input.disabled = false;
+  input.focus();
+
+  roundActive = true;
+  pasteTimerStart = performance.now();
+}
+
+// ---- NORMAL/HARD/EXTREME: copy phase then paste phase ----
+function startCopyPhase() {
+  document.getElementById('copyPhase').style.display = 'block';
+  document.getElementById('pastePhase').style.display = 'none';
+  copyIndex = 0;
+  renderCopyItems();
+  document.getElementById('copyBtn').disabled = false;
+  document.getElementById('copyBtn').textContent = `Copy #1`;
+}
+
+function renderCopyItems() {
+  const container = document.getElementById('copyItems');
+  container.innerHTML = '';
+  roundItems.forEach((text, i) => {
+    let cls = 'copy-item';
+    let statusText = '';
+    if (i < copyIndex) { cls += ' done'; statusText = 'Copied'; }
+    else if (i === copyIndex) { cls += ' active'; statusText = 'Ready'; }
+    else { cls += ' waiting'; statusText = ''; }
+
+    container.innerHTML += `
+      <div class="${cls}">
+        <div class="copy-item-num">${i + 1}</div>
+        <div class="copy-item-text">${escHtml(text)}</div>
+        <div class="copy-item-status">${statusText}</div>
+      </div>`;
+  });
+}
+
+async function copyCurrentItem() {
+  if (copyIndex >= roundItems.length) return;
+
+  const text = roundItems[copyIndex];
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    fallbackCopy(text);
+  }
+
+  copyIndex++;
+  renderCopyItems();
+
+  if (copyIndex < roundItems.length) {
+    document.getElementById('copyBtn').textContent = `Copy #${copyIndex + 1}`;
+  } else {
+    // All copied, move to paste phase
+    document.getElementById('copyBtn').disabled = true;
+    document.getElementById('copyBtn').textContent = 'All copied!';
+    setTimeout(() => startPastePhase(), 600);
+  }
+}
+
+function startPastePhase() {
+  document.getElementById('copyPhase').style.display = 'none';
+  document.getElementById('pastePhase').style.display = 'block';
+
+  const num = targetIndex + 1;
+  document.getElementById('targetNum').textContent = num;
+  document.querySelector('.paste-target-label').textContent = 'Find this item from your clipboard history:';
+
+  // Show a hint: first/last few chars with middle masked
+  const preview = maskMiddle(targetText);
+  document.getElementById('targetPreview').innerHTML = `Item #${num}: <span class="masked">${escHtml(preview)}</span>`;
+  document.getElementById('pasteHint').innerHTML = MODE_CONFIG[mode].hint;
+
+  const input = document.getElementById('pasteArea');
+  input.value = '';
+  input.disabled = false;
+  input.focus();
+
+  roundActive = true;
+  pasteTimerStart = performance.now();
+}
+
+function maskMiddle(text) {
+  if (text.length <= 4) return text[0] + '***' + text[text.length - 1];
+  const show = Math.max(2, Math.floor(text.length * 0.3));
+  const front = text.slice(0, show);
+  const back = text.slice(-show);
+  const mid = '*'.repeat(Math.min(text.length - show * 2, 6));
+  return front + mid + back;
+}
+
+// Check paste answer
+document.getElementById('pasteArea').addEventListener('input', (e) => {
+  if (!roundActive) return;
+  if (e.target.value !== targetText) return;
+
+  roundActive = false;
+  clearInterval(timerInterval);
+  clearTimeout(roundTimeout);
+
+  const elapsed = performance.now() - pasteTimerStart;
+  times.push(Math.round(elapsed));
+  if (elapsed < bestTime) bestTime = elapsed;
+
+  const cfg = MODE_CONFIG[mode];
+  const historyDepth = cfg.items - 1 - targetIndex; // how far back in history
+  const depthBonus = historyDepth * 50;
+  const timeBonus = Math.max(0, Math.round((cfg.time - (performance.now() - timerStart)) / 10));
+  const roundScore = 100 + depthBonus + timeBonus;
+  score += roundScore;
+
+  document.getElementById('feedback').textContent =
+    `+${roundScore} pts (${(elapsed / 1000).toFixed(2)}s)`;
+  document.getElementById('feedback').className = 'feedback correct';
+  document.getElementById('timerFill').style.width = '0%';
+  updateScoreBar();
+
+  setTimeout(nextRound, 1200);
+});
+
+function updateScoreBar() {
+  document.getElementById('score').textContent = score;
+  document.getElementById('round').textContent = currentRound;
+  document.getElementById('bestTime').textContent =
+    bestTime < Infinity ? (bestTime / 1000).toFixed(2) + 's' : '-';
+}
+
+function endGame() {
+  clearInterval(timerInterval);
+  clearTimeout(roundTimeout);
+  document.getElementById('playScreen').style.display = 'none';
+  const resultScreen = document.getElementById('resultScreen');
+  resultScreen.style.display = 'flex';
+  document.getElementById('finalScore').textContent = score;
+
+  const cfg = MODE_CONFIG[mode];
+  const completed = times.length;
+  const total = cfg.rounds;
+  const avg = completed ? (times.reduce((a, b) => a + b, 0) / completed / 1000).toFixed(2) : '-';
+  const best = bestTime < Infinity ? (bestTime / 1000).toFixed(2) : '-';
+  const accuracy = total ? Math.round(completed / total * 100) : 0;
+
+  document.getElementById('stats').innerHTML =
+    `Completed: ${completed}/${total}<br>` +
+    `Accuracy: ${accuracy}%<br>` +
+    `Avg paste time: ${avg}s<br>` +
+    `Best paste time: ${best}s`;
+
+  // Grade
+  let grade = '';
+  if (accuracy === 100 && mode === 'extreme') grade = 'S — Clipboard Master!';
+  else if (accuracy >= 90) grade = 'A — Excellent!';
+  else if (accuracy >= 70) grade = 'B — Good';
+  else if (accuracy >= 50) grade = 'C — Keep practicing';
+  else grade = 'D — Try an easier mode';
+  document.getElementById('grade').textContent = grade;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+}
+
+// Enter to start
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && document.getElementById('startScreen').style.display !== 'none') {
+    startGame();
+  }
+});
+</script>
+</body>
+</html>
