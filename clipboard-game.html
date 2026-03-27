@@ -382,12 +382,16 @@ const MODE_CONFIG = {
 };
 
 const WORDS = [
-  'apple','brave','cloud','dance','eagle','flame','grape','house','ivory','jewel',
-  'knife','lemon','mouse','noble','ocean','piano','queen','river','stone','tiger',
-  'ultra','vivid','whale','xenon','yacht','zebra','blaze','crane','drift','frost',
-  'globe','haven','joker','karma','lunar','maple','nexus','omega','prism','quest',
-  'radar','solar','torch','umbra','venom','wrath','pixel','cyber','delta','spark',
-  'amber','coral','forge','grain','haste','inlet','jolly','knack','lucid','merit',
+  'algorithm','boulevard','cathedral','dangerous','elaborate','frequency','guarantee',
+  'harmonize','illustrate','juxtapose','kaleidoscope','labyrinth','magnificent',
+  'navigation','obligation','peripheral','quarantine','renaissance','surveillance',
+  'temperature','ubiquitous','vulnerable','wilderness','xylophone','yesteryear',
+  'adrenaline','bankruptcy','catastrophe','discipline','equilibrium','fluorescent',
+  'governance','hemisphere','indigenous','journalism','knowledgeable','lieutenant',
+  'melancholy','nonetheless','observatory','philanthropy','quintessential','repository',
+  'semiconductor','trampoline','unmistakable','vocabulary','whereabouts','abnormality',
+  'bewilderment','circumstance','denomination','encapsulate','furthermore','hallucinate',
+  'infrastructure','jeopardize','overwhelm','Switzerland','troubleshoot','unbelievable',
 ];
 
 function randomWord() {
@@ -579,10 +583,25 @@ async function copyCurrentItem() {
   if (copyIndex >= roundItems.length) return;
 
   const text = roundItems[copyIndex];
+  let copied = false;
+
   try {
     await navigator.clipboard.writeText(text);
+    copied = true;
   } catch {
-    fallbackCopy(text);
+    copied = fallbackCopy(text);
+  }
+
+  if (!copied) {
+    // Show retry feedback on the current item
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copy failed — click to retry';
+    btn.style.background = 'linear-gradient(135deg, #ef4444, #f97316)';
+    setTimeout(() => {
+      btn.textContent = `Copy #${copyIndex + 1}`;
+      btn.style.background = '';
+    }, 1500);
+    return;
   }
 
   copyIndex++;
@@ -701,14 +720,20 @@ function escHtml(s) {
 }
 
 function fallbackCopy(text) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.left = '-9999px';
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
+  }
 }
 
 // Enter to start
